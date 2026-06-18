@@ -1,0 +1,120 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+/* ── Temas index ── */
+.temasSection {
+  padding: 3rem 0 4rem;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.temasGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.temaCard {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-top: 4px solid;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.temaCard:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.temaCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.temaNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.temaTitle {
+  margin: 0 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.3 !important;
+}
+
+.temaTitle a {
+  text-decoration: none;
+}
+
+.temaTitle a:hover {
+  text-decoration: underline;
+}
+
+.temaPageList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.temaPageList li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.temaPageList li::before {
+  content: '›';
+  color: var(--ifm-color-emphasis-500);
+  flex-shrink: 0;
+}
+
+.temaPageList a {
+  font-size: 0.875rem;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.temaPageList a:hover {
+  color: var(--ifm-color-primary);
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .temasGrid {
+    grid-template-columns: 1fr;
+  }
+}

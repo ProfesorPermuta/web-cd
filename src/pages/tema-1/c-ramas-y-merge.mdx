@@ -1,0 +1,217 @@
+import GitBranchAnimation from '@site/src/components/GitBranchAnimation';
+
+# Ramas y Merge en Git
+
+Una **rama** (branch) es una línea de desarrollo independiente dentro del mismo repositorio. Puedes pensar en ellas como caminos paralelos: cada rama puede avanzar por su lado sin interferir con las demás, hasta que decidas unirlas.
+
+```bash
+# Ver todas las ramas locales (la rama activa aparece con *)
+git branch
+```
+
+---
+
+## ¿Por qué usar ramas?
+
+Sin ramas, todo el equipo trabajaría directamente sobre el mismo código al mismo tiempo. Eso significa:
+
+- Código a medias mezclado con código que funciona.
+- Imposible aislar un bug sin interrumpir el desarrollo de nuevas funciones.
+- Imposible probar una idea nueva sin arriesgar la versión estable.
+
+Con ramas, cada funcionalidad, corrección o experimento vive en su propio espacio seguro hasta que está listo para integrarse.
+
+---
+
+## Crear y cambiar de rama
+
+```bash
+# Crear una nueva rama (sin cambiarte a ella)
+git branch feature/login
+
+# Cambiarte a una rama existente
+git checkout feature/login
+
+# Crear y cambiarte a la nueva rama en un solo paso (forma moderna)
+git switch -c feature/login
+
+# Ver en qué rama estás
+git status
+```
+
+:::tip Convención de nombres de ramas
+Usa prefijos que indiquen el propósito de la rama:
+- `feature/nombre` — nueva funcionalidad
+- `fix/nombre` — corrección de bug
+- `hotfix/nombre` — corrección urgente en producción
+- `release/version` — preparación de una versión
+:::
+
+---
+
+## El flujo de trabajo con ramas
+
+El proceso habitual al desarrollar una nueva funcionalidad es:
+
+<GitBranchAnimation />
+
+
+
+```
+1. Partir de main actualizado
+2. Crear una rama para la funcionalidad
+3. Desarrollar y hacer commits en esa rama
+4. Fusionar la rama con main cuando esté lista
+5. Eliminar la rama (ya no es necesaria)
+```
+
+```bash
+# 1. Asegurarse de estar en main y tenerlo actualizado
+git switch main
+git pull origin main
+
+# 2. Crear la rama de la nueva funcionalidad
+git switch -c feature/registro-usuarios
+
+# 3. Trabajar, hacer commits...
+git add .
+git commit -m "Añade formulario de registro"
+git commit -m "Añade validación de campos del formulario"
+
+# 4. Volver a main y fusionar
+git switch main
+git merge feature/registro-usuarios
+
+# 5. Eliminar la rama local (ya está integrada)
+git branch -d feature/registro-usuarios
+```
+
+---
+
+## Tipos de merge
+
+### Fast-forward (avance rápido)
+
+Ocurre cuando la rama principal **no ha recibido ningún commit nuevo** desde que creaste la rama. Git simplemente mueve el puntero de `main` hacia adelante.
+
+```
+Antes del merge:
+main:    A --- B
+                \
+feature:         C --- D
+
+Después del merge (fast-forward):
+main:    A --- B --- C --- D
+```
+
+```bash
+# Git hace fast-forward automáticamente si es posible
+git merge feature/registro-usuarios
+```
+
+### Merge con commit de fusión (3-way merge)
+
+Ocurre cuando **ambas ramas han avanzado** por separado desde el punto en que divergieron. Git crea un nuevo commit especial que une las dos líneas.
+
+```
+Antes del merge:
+main:    A --- B --- E
+                \
+feature:         C --- D
+
+Después del merge:
+main:    A --- B --- E --- M   (M = merge commit)
+                \         /
+feature:         C --- D
+```
+
+```bash
+# Forzar siempre un merge commit aunque sea posible el fast-forward
+git merge --no-ff feature/registro-usuarios -m "Merge: integra el registro de usuarios"
+```
+
+---
+
+## Resolver conflictos de merge
+
+Un **conflicto** ocurre cuando dos ramas han modificado las mismas líneas de un fichero. Git no puede decidir cuál de las dos versiones es la correcta y te pide que lo resuelvas manualmente.
+
+```bash
+# Tras ejecutar git merge y obtener un conflicto:
+git status
+# Verás los ficheros marcados como "both modified"
+```
+
+Dentro del fichero en conflicto, Git inserta marcadores:
+
+```
+<<<<<<< HEAD
+    return "Bienvenido, " + nombre;   // versión de main
+=======
+    return "Hola, " + nombre + "!";  // versión de feature
+>>>>>>> feature/saludo-personalizado
+```
+
+Para resolver el conflicto:
+
+1. Edita el fichero y deja solo el código correcto (eliminando los marcadores).
+2. Añade el fichero al staging area.
+3. Completa el merge con un commit.
+
+```bash
+# Después de editar el fichero y dejar el código correcto:
+git add Saludo.java
+git commit -m "Resuelve conflicto en el mensaje de bienvenida"
+```
+
+:::tip Herramientas visuales para conflictos
+La mayoría de IDEs (IntelliJ, VS Code) muestran los conflictos de forma visual con botones para aceptar una versión u otra. Úsalos en lugar de editar los marcadores a mano.
+:::
+
+---
+
+## Publicar una rama en el remoto
+
+```bash
+# Subir la rama al repositorio remoto por primera vez
+git push -u origin feature/registro-usuarios
+
+# A partir de ese momento, basta con:
+git push
+```
+
+---
+
+## Eliminar ramas
+
+```bash
+# Eliminar rama local (solo si ya está fusionada)
+git branch -d feature/registro-usuarios
+
+# Eliminar rama local forzando (aunque no esté fusionada)
+git branch -D feature/experimento-fallido
+
+# Eliminar rama en el repositorio remoto
+git push origin --delete feature/registro-usuarios
+```
+
+---
+
+## Resumen de comandos de ramas
+
+| Acción | Comando |
+|--------|---------|
+| Ver ramas locales | `git branch` |
+| Ver todas las ramas (locales + remotas) | `git branch -a` |
+| Crear y cambiar a rama nueva | `git switch -c nombre-rama` |
+| Cambiar a rama existente | `git switch nombre-rama` |
+| Fusionar rama en la actual | `git merge nombre-rama` |
+| Eliminar rama local | `git branch -d nombre-rama` |
+| Eliminar rama remota | `git push origin --delete nombre-rama` |
+
+---
+
+## Archivos relacionados
+
+- [b-repositorio-y-rama-principal.md](./b-repositorio-y-rama-principal) — Flujo de trabajo en una sola rama
+- [d-flujos-de-trabajo.md](./d-flujos-de-trabajo) — Organizaciones y estrategias de ramas en equipo
