@@ -1,6 +1,6 @@
 # Gestionar un Repositorio en una Sola Rama
 
-Un **repositorio Git** es el corazón del sistema: la carpeta donde Git almacena tanto los ficheros de tu proyecto como todo su historial de cambios. En este apartado aprenderás el flujo de trabajo básico trabajando sobre la rama principal.
+Un **repositorio Git** es el corazón del sistema: la carpeta donde Git almacena tanto los ficheros de tu proyecto como todo su historial de cambios. En este apartado aprenderemos el flujo de trabajo básico trabajando sobre la rama principal.
 
 ```bash
 # Inicializar un nuevo repositorio en la carpeta actual
@@ -17,8 +17,18 @@ El flujo de trabajo diario con Git se repite siempre con tres pasos. Piensa en e
 2. **Preparas** los cambios que quieres incluir en el próximo commit (área de preparación o *staging area*).
 3. **Guardas** el commit con un mensaje descriptivo (repositorio local).
 
-```
-[Área de trabajo] --git add--> [Staging area] --git commit--> [Repositorio]
+```mermaid
+flowchart LR
+    A(["📂 Área de trabajo<br/>ficheros modificados"])
+    B(["📝 Staging area<br/>cambios preparados"])
+    C(["💾 Repositorio<br/>historial de commits"])
+
+    A -- "git add" --> B
+    B -- "git commit" --> C
+
+    style A fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    style B fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    style C fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
 ```
 
 ---
@@ -36,6 +46,7 @@ git init
 # Conectar con un repositorio remoto ya creado en GitHub/Bitbucket
 git remote add origin https://github.com/usuario/mi-proyecto.git
 ```
+
 
 ### Opción B — Clonar un proyecto existente
 
@@ -74,7 +85,10 @@ git add .
 git add -u
 ```
 
-:::warning Cuidado con `git add .`
+:::warning 
+
+Cuidado con `git add .`
+
 `git add .` añade absolutamente todo lo que haya cambiado, incluidos ficheros que no quieres versionar (configuraciones locales, contraseñas, etc.). Usa un fichero `.gitignore` para excluirlos.
 :::
 
@@ -109,7 +123,10 @@ git commit -m "Añade validación de email en el registro de usuarios"
 git commit -am "Corrige el cálculo del precio con descuento"
 ```
 
-:::tip Buenas prácticas para mensajes de commit
+:::tip 
+
+Buenas prácticas para mensajes de commit
+
 - Usa el **imperativo** en presente: "Añade", "Corrige", "Elimina".
 - Sé descriptivo pero conciso (menos de 72 caracteres).
 - Indica el *por qué* si el cambio no es obvio.

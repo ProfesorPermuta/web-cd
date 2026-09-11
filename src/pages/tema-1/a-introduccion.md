@@ -23,10 +23,10 @@ trabajo_final_DEFINITIVO_ahora_si.docx
 
 Con un equipo de varias personas trabajando sobre el mismo código, este caos se multiplica. Git resuelve exactamente estos problemas:
 
-- **Historial completo**: cada cambio queda registrado con quién lo hizo, cuándo y por qué.
-- **Trabajo en equipo sin conflictos**: varias personas pueden trabajar sobre el mismo proyecto de forma simultánea.
-- **Recuperación ante errores**: si algo se rompe, puedes volver a cualquier versión anterior en segundos.
-- **Experimentación segura**: puedes probar ideas nuevas sin miedo a estropear el código que ya funciona.
+- **Historial completo**: cada cambio queda registrado con quién lo hizo, cuándo y por qué, los llamamos `commits`.
+- **Trabajo en equipo sin conflictos**: varias personas pueden trabajar sobre el mismo proyecto de forma simultánea, esto son `branches` y `merges`.
+- **Recuperación ante errores**: si algo se rompe, puedes volver a cualquier versión anterior en segundos, moverte a versiones anteriores es hacer un `checkout`.
+- **Experimentación segura**: puedes probar ideas nuevas sin miedo a estropear el código que ya funciona, para esto tenemos elementos como el `stash` o incluso los `branches`.
 
 ---
 
@@ -36,9 +36,11 @@ Piensa en Git como el sistema de **puntos de guardado** de un videojuego. Cada v
 
 En Git, esos puntos de guardado se llaman **commits**. Cada commit es una fotografía del estado completo de tu proyecto en un momento concreto.
 
-```
-[commit A] → [commit B] → [commit C] → [estado actual]
-  "Inicio"   "Añadí login"  "Arreglé bug"
+```mermaid
+gitGraph
+    commit id: "Inicio"
+    commit id: "Añadí login"
+    commit id: "Arreglé bug"
 ```
 
 ---
@@ -47,7 +49,7 @@ En Git, esos puntos de guardado se llaman **commits**. Cada commit es una fotogr
 
 | Concepto | Descripción |
 |----------|-------------|
-| **Repositorio** | Carpeta de proyecto donde Git registra todo el historial |
+| **Repositorio** | Carpeta de proyecto donde Git registra todo el historial, tiene una carpeta oculta .git |
 | **Commit** | Punto de guardado con un mensaje descriptivo |
 | **Rama (branch)** | Línea de desarrollo independiente dentro del mismo repositorio |
 | **Remote** | Copia del repositorio alojada en un servidor (GitHub, GitLab, Bitbucket…) |
@@ -82,7 +84,10 @@ git config --global user.email "tu@email.com"
 git config --list
 ```
 
-:::tip Consejo
+:::tip 
+
+Consejo
+
 Usa el mismo correo que tienes en tu cuenta de GitHub o Bitbucket para que tus commits queden vinculados a tu perfil.
 :::
 

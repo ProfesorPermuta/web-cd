@@ -139,7 +139,9 @@ git clone https://bitbucket.org/usuario/mi-proyecto.git
 | **Integración Jira** | Parcial | Parcial | Nativa |
 | **Gratuito para equipos** | Ilimitado | Ilimitado | Hasta 5 personas |
 
-:::tip ¿Cuál usar en el curso?
+:::tip
+
+ ¿Cuál usar en el curso?
 En este curso usaremos **Bitbucket** para publicar las soluciones de ejercicios y **GitHub** como referencia para proyectos personales y portfolios. Ambos funcionan exactamente igual desde la línea de comandos de Git: solo cambia la URL del remoto.
 :::
 
@@ -170,7 +172,9 @@ cat ~/.ssh/id_ed25519.pub
 git clone git@github.com:usuario/mi-proyecto.git
 ```
 
-:::info Token de acceso personal (PAT)
+:::info 
+Token de acceso personal (PAT)
+
 GitHub y Bitbucket eliminaron el soporte para contraseñas normales vía HTTPS. En su lugar debes crear un **Personal Access Token (PAT)** desde la configuración de tu cuenta y usarlo como si fuera la contraseña. La autenticación SSH evita este paso.
 :::
 
