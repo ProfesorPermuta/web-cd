@@ -164,4 +164,3 @@ Las líneas de actuación en el proceso de enseñanza-aprendizaje que permiten a
 - La generación de diagramas técnicos.
 - La elaboración de documentación interna de la aplicación.
 - La utilización de sistemas de control de versiones.
-</content>
