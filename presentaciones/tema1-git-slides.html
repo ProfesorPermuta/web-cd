@@ -308,6 +308,48 @@ code{
 .diagram .line{ color: var(--text-faint); }
 .diagram .m{ color: var(--amber); font-weight: 700; }
 
+/* SVG diagram card */
+.svg-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.svg-card svg{ width: 100%; height: auto; display: block; }
+.svg-card .lbl{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  fill: var(--text-dim);
+}
+.svg-card .lbl-strong{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--text);
+}
+.svg-card .lane-label{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .04em;
+  fill: var(--text-faint);
+}
+.svg-card .edge{ stroke: var(--text-faint); stroke-width: 2; fill: none; }
+.svg-card .edge-a{ stroke: var(--emerald); stroke-width: 2.5; fill: none; }
+.svg-card .edge-b{ stroke: var(--amber); stroke-width: 2.5; fill: none; }
+.svg-card .commit{ fill: var(--surface); stroke: var(--text-faint); stroke-width: 2.5; }
+.svg-card .commit-a{ fill: var(--surface); stroke: var(--emerald); stroke-width: 2.5; }
+.svg-card .commit-b{ fill: var(--surface); stroke: var(--amber); stroke-width: 2.5; }
+.svg-card .commit-m{ fill: var(--amber); stroke: var(--amber); stroke-width: 2.5; }
+.svg-card .commit-ghost{ fill: none; stroke: var(--border); stroke-width: 2; stroke-dasharray: 3 4; }
+.svg-card .box{ fill: var(--surface-2); stroke: var(--border); stroke-width: 1.5; rx: 10; }
+.svg-card .box-accent{ fill: color-mix(in oklab, var(--emerald) 12%, var(--surface-2)); stroke: var(--emerald); stroke-width: 1.5; rx: 10; }
+.svg-card .arrow{ stroke: var(--text-faint); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+.svg-card .arrow-accent{ stroke: var(--emerald); stroke-width: 2; fill: none; marker-end: url(#arrowhead-accent); }
+
 /* badges */
 .badge{
   display: inline-flex;
@@ -492,7 +534,18 @@ trabajo_final_v2_revisado.docx
         <p style="font-size:20px; line-height:1.6; color:var(--text-dim); max-width:48ch;">
           Piensa en Git como el sistema de guardado de un videojuego. Cada <b style="color:var(--text)">commit</b> es una fotografía completa del proyecto en un momento concreto. Si algo sale mal, cargas el último punto de guardado.
         </p>
-        <div class="diagram">main <span class="line">●</span>──── <span class="node">"Inicio"</span> ────<span class="line">●</span>──── <span class="node">"Añadí login"</span> ────<span class="line">●</span>──── <span class="node">"Arreglé bug"</span></div>
+        <div class="svg-card">
+          <svg viewBox="0 0 460 140" xmlns="http://www.w3.org/2000/svg">
+            <text x="10" y="30" class="lane-label">main</text>
+            <path class="edge-a" d="M70,60 H390"/>
+            <circle class="commit-a" cx="70" cy="60" r="10"/>
+            <circle class="commit-a" cx="230" cy="60" r="10"/>
+            <circle class="commit-a" cx="390" cy="60" r="10"/>
+            <text x="70" y="95" text-anchor="middle" class="lbl">"Inicio"</text>
+            <text x="230" y="95" text-anchor="middle" class="lbl">"Añadí login"</text>
+            <text x="390" y="95" text-anchor="middle" class="lbl">"Arreglé bug"</text>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
@@ -638,9 +691,35 @@ trabajo_final_v2_revisado.docx
     <div class="kicker">03 · Rama principal</div>
     <h2 class="title">El ciclo básico: <em>modificar → preparar → guardar</em></h2>
     <div class="content">
-      <div class="diagram" style="font-size:15px; line-height:1.9;">
-<span class="node">📂 Área de trabajo</span>          <span class="node">📝 Staging area</span>            <span class="node">💾 Repositorio</span>
-   ficheros modificados  <span class="m">--git add--&gt;</span>   cambios preparados   <span class="m">--git commit--&gt;</span>   historial de commits</div>
+      <div class="svg-card">
+        <svg viewBox="0 0 920 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="var(--text-faint)"/></marker>
+            <marker id="arrowhead-accent" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="var(--emerald)"/></marker>
+          </defs>
+          <rect class="box" x="20" y="50" width="230" height="110" rx="12"/>
+          <rect class="box" x="345" y="50" width="230" height="110" rx="12"/>
+          <rect class="box-accent" x="670" y="50" width="230" height="110" rx="12"/>
+
+          <text x="135" y="90" text-anchor="middle" class="lbl-strong" font-size="16">Área de trabajo</text>
+          <text x="135" y="118" text-anchor="middle" class="lbl">ficheros</text>
+          <text x="135" y="138" text-anchor="middle" class="lbl">modificados</text>
+
+          <text x="460" y="90" text-anchor="middle" class="lbl-strong" font-size="16">Staging area</text>
+          <text x="460" y="118" text-anchor="middle" class="lbl">cambios</text>
+          <text x="460" y="138" text-anchor="middle" class="lbl">preparados</text>
+
+          <text x="785" y="90" text-anchor="middle" class="lbl-strong" font-size="16">Repositorio</text>
+          <text x="785" y="118" text-anchor="middle" class="lbl">historial de</text>
+          <text x="785" y="138" text-anchor="middle" class="lbl">commits</text>
+
+          <path class="arrow" d="M252,105 H340"/>
+          <text x="296" y="90" text-anchor="middle" class="lbl" font-weight="700">git add</text>
+
+          <path class="arrow-accent" d="M577,105 H665"/>
+          <text x="621" y="90" text-anchor="middle" class="lbl-strong">git commit</text>
+        </svg>
+      </div>
       <ul class="list" style="margin-top:32px;">
         <li><span class="bul">1</span><span><b>Modificas</b> <span class="d">ficheros en tu carpeta de trabajo</span></span></li>
         <li><span class="bul">2</span><span><b>Preparas</b> <span class="d">los cambios para el próximo commit (staging area)</span></span></li>
@@ -756,10 +835,31 @@ application-local.properties
           <p style="font-size:19px; color:var(--text-dim); max-width:46ch;">Sin ramas, todo el equipo trabaja sobre el mismo código a la vez: código a medias mezclado con código estable, bugs difíciles de aislar, cero margen para experimentar.</p>
           <p style="font-size:19px; color:var(--text); max-width:46ch; margin-top:16px;">Con ramas, cada funcionalidad vive en su <b>espacio seguro</b> hasta que está lista para integrarse.</p>
         </div>
-        <div class="diagram" style="font-size:14px;">
-main       <span class="line">A───B────────────E───H</span>
-                <span class="line">╲</span>              <span class="line">╱</span>
-feature         <span class="node">C───D</span>          <span class="node">F───G</span></div>
+        <div class="svg-card">
+          <svg viewBox="0 0 460 200" xmlns="http://www.w3.org/2000/svg">
+            <text x="10" y="45" class="lane-label">main</text>
+            <text x="10" y="145" class="lane-label">feature</text>
+
+            <path class="edge" d="M75,40 H155"/>
+            <path class="edge" d="M155,40 H385"/>
+            <path class="edge" d="M155,40 L215,140"/>
+            <path class="edge" d="M215,140 H305"/>
+            <path class="edge" d="M305,140 L365,40"/>
+            <path class="edge" d="M365,40 H385"/>
+
+            <circle class="commit" cx="75" cy="40" r="9"/>
+            <circle class="commit" cx="155" cy="40" r="9"/>
+            <circle class="commit" cx="385" cy="40" r="9"/>
+            <circle class="commit-a" cx="215" cy="140" r="9"/>
+            <circle class="commit-a" cx="305" cy="140" r="9"/>
+
+            <text x="75" y="20" text-anchor="middle" class="lbl">A</text>
+            <text x="155" y="20" text-anchor="middle" class="lbl">B</text>
+            <text x="215" y="170" text-anchor="middle" class="lbl-strong">C</text>
+            <text x="305" y="170" text-anchor="middle" class="lbl-strong">D</text>
+            <text x="385" y="20" text-anchor="middle" class="lbl">E</text>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
@@ -823,11 +923,38 @@ feature         <span class="node">C───D</span>          <span class="node
     <h2 class="title">Merge <em>fast-forward</em></h2>
     <div class="content">
       <p style="font-size:18px; color:var(--text-dim); max-width:60ch;">Ocurre cuando <code>main</code> no ha recibido ningún commit nuevo desde que creaste la rama. Git simplemente mueve el puntero hacia adelante.</p>
-      <div class="diagram" style="margin-top:24px;">Antes:      main  <span class="line">A───B</span>
-                            <span class="line">╲</span>
-                  feature       <span class="node">C───D</span>
+      <div class="svg-card" style="margin-top:24px;">
+        <svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="30" class="lbl-strong">Antes</text>
+          <text x="60" y="60" class="lane-label">main</text>
+          <text x="60" y="100" class="lane-label">feature</text>
+          <path class="edge" d="M130,55 H190"/>
+          <path class="edge" d="M190,55 L250,95"/>
+          <path class="edge" d="M250,95 H310"/>
+          <circle class="commit" cx="130" cy="55" r="8"/>
+          <circle class="commit" cx="190" cy="55" r="8"/>
+          <circle class="commit-a" cx="250" cy="95" r="8"/>
+          <circle class="commit-a" cx="310" cy="95" r="8"/>
+          <text x="130" y="38" text-anchor="middle" class="lbl">A</text>
+          <text x="190" y="38" text-anchor="middle" class="lbl">B</text>
+          <text x="250" y="118" text-anchor="middle" class="lbl-strong">C</text>
+          <text x="310" y="118" text-anchor="middle" class="lbl-strong">D</text>
 
-Después:    main  <span class="line">A───B───</span><span class="node">C───D</span></div>
+          <line x1="0" y1="150" x2="620" y2="150" stroke="var(--border)" stroke-width="1"/>
+
+          <text x="10" y="180" class="lbl-strong">Después</text>
+          <text x="60" y="205" class="lane-label">main</text>
+          <path class="edge-a" d="M130,200 H190 L250,200 H310"/>
+          <circle class="commit" cx="130" cy="200" r="8"/>
+          <circle class="commit" cx="190" cy="200" r="8"/>
+          <circle class="commit-a" cx="250" cy="200" r="8"/>
+          <circle class="commit-a" cx="310" cy="200" r="8"/>
+          <text x="130" y="183" text-anchor="middle" class="lbl">A</text>
+          <text x="190" y="183" text-anchor="middle" class="lbl">B</text>
+          <text x="250" y="183" text-anchor="middle" class="lbl-strong">C</text>
+          <text x="310" y="183" text-anchor="middle" class="lbl-strong">D</text>
+        </svg>
+      </div>
     </div>
   </section>
 
@@ -837,13 +964,43 @@ Después:    main  <span class="line">A───B───</span><span class="no
     <h2 class="title">Merge con <em>commit de fusión</em></h2>
     <div class="content">
       <p style="font-size:18px; color:var(--text-dim); max-width:60ch;">Ocurre cuando <b style="color:var(--text)">ambas ramas</b> han avanzado por separado. Git crea un nuevo commit que une las dos líneas.</p>
-      <div class="diagram" style="margin-top:24px;">Antes:      main  <span class="line">A───B───E</span>
-                            <span class="line">╲</span>
-                  feature       <span class="node">C───D</span>
+      <div class="svg-card" style="margin-top:20px;">
+        <svg viewBox="0 0 620 200" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="30" class="lbl-strong">Antes</text>
+          <text x="60" y="60" class="lane-label">main</text>
+          <text x="60" y="100" class="lane-label">feature</text>
+          <path class="edge" d="M130,55 H250"/>
+          <path class="edge" d="M130,55 L190,95"/>
+          <path class="edge" d="M190,95 H250"/>
+          <circle class="commit" cx="130" cy="55" r="8"/>
+          <circle class="commit" cx="250" cy="55" r="8"/>
+          <circle class="commit-a" cx="190" cy="95" r="8"/>
+          <circle class="commit-a" cx="250" cy="95" r="8"/>
+          <text x="130" y="38" text-anchor="middle" class="lbl">A</text>
+          <text x="250" y="38" text-anchor="middle" class="lbl">B</text>
+          <text x="190" y="118" text-anchor="middle" class="lbl-strong">C</text>
+          <text x="250" y="118" text-anchor="middle" class="lbl-strong">D</text>
 
-Después:    main  <span class="line">A───B───E───</span><span class="m">M</span>  <span class="c">(M = merge commit)</span>
-                            <span class="line">╲</span>       <span class="line">╱</span>
-                  feature       <span class="node">C───D</span></div>
+          <line x1="0" y1="140" x2="620" y2="140" stroke="var(--border)" stroke-width="1"/>
+
+          <text x="10" y="170" class="lbl-strong">Después</text>
+          <text x="60" y="180" class="lane-label" style="display:none;"></text>
+          <path class="edge" d="M330,180 H370"/>
+          <path class="edge" d="M370,180 L440,180"/>
+          <path class="edge" d="M370,180 L440,150"/>
+          <path class="edge" d="M440,150 L470,168"/>
+          <path class="edge" d="M440,180 L470,168"/>
+          <circle class="commit" cx="330" cy="180" r="8"/>
+          <circle class="commit" cx="370" cy="180" r="8"/>
+          <circle class="commit-a" cx="440" cy="150" r="8"/>
+          <circle class="commit-m" cx="470" cy="168" r="9"/>
+          <text x="330" y="163" text-anchor="middle" class="lbl">A</text>
+          <text x="370" y="163" text-anchor="middle" class="lbl">B</text>
+          <text x="440" y="133" text-anchor="middle" class="lbl-strong">D</text>
+          <text x="500" y="172" class="lbl-strong">M</text>
+          <text x="520" y="190" class="lbl">merge commit</text>
+        </svg>
+      </div>
       <div class="term-body" style="font-family:'JetBrains Mono',monospace; margin-top:16px; color:var(--text-dim);"><span class="prompt">$</span> git merge --no-ff feature/registro -m <span class="a">"Merge: integra registro"</span></div>
     </div>
   </section>
@@ -856,7 +1013,24 @@ Después:    main  <span class="line">A───B───E───</span><span
       <div class="two-col">
         <div>
           <p style="font-size:18px; color:var(--text-dim);">Ocurre cuando dos ramas modifican las <b style="color:var(--text)">mismas líneas</b>. Git no puede decidir y te pide resolverlo a mano.</p>
-          <ul class="list" style="margin-top:20px; gap:12px;">
+          <div class="svg-card" style="margin-top:18px; padding:16px 20px;">
+            <svg viewBox="0 0 380 130" xmlns="http://www.w3.org/2000/svg">
+              <path class="edge" d="M40,65 H130"/>
+              <path class="edge-a" d="M130,65 L220,25"/>
+              <path class="edge-b" d="M130,65 L220,105"/>
+              <circle class="commit" cx="40" cy="65" r="8"/>
+              <circle class="commit" cx="130" cy="65" r="8"/>
+              <circle class="commit-a" cx="220" cy="25" r="8"/>
+              <circle class="commit-b" cx="220" cy="105" r="8"/>
+              <rect class="box" x="255" y="45" width="105" height="40" rx="8"/>
+              <text x="307" y="70" text-anchor="middle" class="lbl-strong" font-size="13">Saludo.java</text>
+              <path class="edge-a" d="M228,25 H260" stroke-dasharray="2 3"/>
+              <path class="edge-b" d="M228,105 H260" stroke-dasharray="2 3"/>
+              <text x="220" y="15" text-anchor="middle" class="lbl">main</text>
+              <text x="220" y="123" text-anchor="middle" class="lbl">feature</text>
+            </svg>
+          </div>
+          <ul class="list" style="margin-top:18px; gap:12px;">
             <li><span class="bul">1</span><span>Edita el fichero, elimina los marcadores</span></li>
             <li><span class="bul">2</span><span>Añade el fichero al staging area</span></li>
             <li><span class="bul">3</span><span>Completa el merge con un commit</span></li>
@@ -910,7 +1084,22 @@ Después:    main  <span class="line">A───B───E───</span><span
     <div class="kicker">05 · Flujos de trabajo</div>
     <h2 class="title">Flujo 1 · <em>Trunk-Based Development</em></h2>
     <div class="content">
-      <div class="diagram">main:  <span class="node">A───B───C───D───E</span></div>
+      <div class="svg-card">
+        <svg viewBox="0 0 560 80" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="45" class="lane-label">main</text>
+          <path class="edge-a" d="M75,40 H485"/>
+          <circle class="commit-a" cx="75" cy="40" r="8"/>
+          <circle class="commit-a" cx="175" cy="40" r="8"/>
+          <circle class="commit-a" cx="275" cy="40" r="8"/>
+          <circle class="commit-a" cx="375" cy="40" r="8"/>
+          <circle class="commit-a" cx="485" cy="40" r="8"/>
+          <text x="75" y="65" text-anchor="middle" class="lbl">A</text>
+          <text x="175" y="65" text-anchor="middle" class="lbl">B</text>
+          <text x="275" y="65" text-anchor="middle" class="lbl">C</text>
+          <text x="375" y="65" text-anchor="middle" class="lbl">D</text>
+          <text x="485" y="65" text-anchor="middle" class="lbl">E</text>
+        </svg>
+      </div>
       <div class="two-col" style="margin-top:8px;">
         <p style="font-size:18px; color:var(--text-dim);">Todo el equipo trabaja directamente sobre <code>main</code>. Apropiado para equipos muy pequeños o proyectos personales.</p>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
@@ -926,9 +1115,36 @@ Después:    main  <span class="line">A───B───E───</span><span
     <div class="kicker">05 · Flujos de trabajo</div>
     <h2 class="title">Flujo 2 · <em>Feature Branch Workflow</em></h2>
     <div class="content">
-      <div class="diagram" style="font-size:14px;">main:      <span class="line">A────────B─────────E─────────H</span>
-                 <span class="line">╲</span>           <span class="line">╱</span>         <span class="line">╲</span>       <span class="line">╱</span>
-feature-1:      <span class="node">C───D───</span>          <span class="node">F───G</span></div>
+      <div class="svg-card">
+        <svg viewBox="0 0 620 200" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="45" class="lane-label">main</text>
+          <text x="10" y="145" class="lane-label">feature-1</text>
+
+          <path class="edge" d="M100,40 H180"/>
+          <path class="edge" d="M180,40 H460"/>
+          <path class="edge-a" d="M180,40 L240,140"/>
+          <path class="edge-a" d="M240,140 H320"/>
+          <path class="edge-a" d="M320,140 L380,40"/>
+          <path class="edge" d="M460,40 L510,140"/>
+          <path class="edge-b" d="M510,140 H570"/>
+
+          <circle class="commit" cx="100" cy="40" r="9"/>
+          <circle class="commit" cx="180" cy="40" r="9"/>
+          <circle class="commit-a" cx="240" cy="140" r="9"/>
+          <circle class="commit-a" cx="320" cy="140" r="9"/>
+          <circle class="commit" cx="380" cy="40" r="9"/>
+          <circle class="commit" cx="460" cy="40" r="9"/>
+          <circle class="commit-b" cx="510" cy="140" r="9"/>
+
+          <text x="100" y="20" text-anchor="middle" class="lbl">A</text>
+          <text x="180" y="20" text-anchor="middle" class="lbl">B</text>
+          <text x="240" y="170" text-anchor="middle" class="lbl-strong">C</text>
+          <text x="320" y="170" text-anchor="middle" class="lbl-strong">D</text>
+          <text x="380" y="20" text-anchor="middle" class="lbl">E</text>
+          <text x="460" y="20" text-anchor="middle" class="lbl">H</text>
+          <text x="510" y="170" text-anchor="middle" class="lbl-strong">F</text>
+        </svg>
+      </div>
       <p style="font-size:18px; color:var(--text-dim); margin-top:20px; max-width:66ch;">Cada funcionalidad se desarrolla en su propia rama y se fusiona a <code>main</code> vía <b style="color:var(--text)">Pull Request</b>, con revisión de código del equipo. El flujo más común en proyectos medianos.</p>
     </div>
   </section>
@@ -975,7 +1191,18 @@ feature-1:      <span class="node">C───D───</span>          <span cl
           <p>Extiende GitHub Flow con ramas <code>pre-production</code> y <code>production</code> para entornos de despliegue no automático.</p>
         </div>
       </div>
-      <div class="diagram" style="margin-top:20px; font-size:15px;">main ──→ pre-production ──→ production</div>
+      <div class="svg-card" style="margin-top:20px;">
+        <svg viewBox="0 0 620 110" xmlns="http://www.w3.org/2000/svg">
+          <rect class="box-accent" x="10" y="30" width="170" height="50" rx="10"/>
+          <rect class="box" x="225" y="30" width="170" height="50" rx="10"/>
+          <rect class="box" x="440" y="30" width="170" height="50" rx="10"/>
+          <text x="95" y="60" text-anchor="middle" class="lbl-strong">main</text>
+          <text x="310" y="60" text-anchor="middle" class="lbl-strong">pre-production</text>
+          <text x="525" y="60" text-anchor="middle" class="lbl-strong">production</text>
+          <path class="arrow-accent" d="M182,55 H220"/>
+          <path class="arrow" d="M397,55 H435"/>
+        </svg>
+      </div>
     </div>
   </section>
 
