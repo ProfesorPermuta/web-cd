@@ -46,26 +46,7 @@ Se define la arquitectura del sistema: qué clases existirán, cómo se comunica
 
 ### 4. Codificación
 
-Los programadores implementan el diseño. En un proyecto Java bien organizado, el código debe reflejar fielmente el diseño previo.
-
-```java
-// Ejemplo: clase surgida del diseño previo en la fase de Codificación
-public class Pedido {
-    private int id;
-    private String descripcion;
-    private double total;
-
-    public Pedido(int id, String descripcion, double total) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.total = total;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-}
-```
+Los programadores implementan el diseño. En un proyecto bien organizado, el código debe reflejar fielmente el diseño acordado en la fase anterior: las mismas partes del sistema, con las mismas responsabilidades, que se definieron sobre el papel.
 
 ### 5. Pruebas
 
@@ -104,5 +85,4 @@ El mayor riesgo del modelo en Cascada es llegar a la fase de Pruebas y descubrir
 ## Archivos relacionados
 
 - [a-introduccion.md](a-introduccion.md) — Introducción a la Ingeniería de Software
-- [c-modelo-prototipado.md](c-modelo-prototipado.md) — Modelo de Prototipado
 - [d-modelo-iterativo.md](d-modelo-iterativo.md) — Modelo Iterativo y Adaptable

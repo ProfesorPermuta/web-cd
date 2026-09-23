@@ -56,35 +56,10 @@ El proceso de desarrollo es el más extenso y se divide en cinco subprocesos:
 ```
 [ASI] Requisito: "El sistema debe calcular el IRPF de cada nómina"
          ↓
-[DSI] Clase diseñada: Nomina con método calcularIrpf()
+[DSI] Se diseña una clase Nómina, con los datos que necesita
+      y la operación de calcular el IRPF entre sus responsabilidades
          ↓
-[CSI] Implementación en Java:
-```
-
-```java
-public class Nomina {
-    private String empleado;
-    private double salarioBruto;
-    private double porcentajeIrpf;
-
-    public Nomina(String empleado, double salarioBruto, double porcentajeIrpf) {
-        this.empleado = empleado;
-        this.salarioBruto = salarioBruto;
-        this.porcentajeIrpf = porcentajeIrpf;
-    }
-
-    // Calcula la retención de IRPF aplicada al salario bruto
-    public double calcularIrpf() {
-        return salarioBruto * porcentajeIrpf / 100;
-    }
-
-    public double calcularSalarioNeto() {
-        return salarioBruto - calcularIrpf();
-    }
-
-    public String getEmpleado() { return empleado; }
-    public double getSalarioBruto() { return salarioBruto; }
-}
+[CSI] Esa clase se implementa y se prueba
 ```
 
 ---
@@ -125,4 +100,4 @@ La documentación completa de Métrica v3 es de libre acceso en el portal del Mi
 ## Archivos relacionados
 
 - [b-modelo-cascada.md](b-modelo-cascada.md) — Modelo en Cascada (base del proceso de Métrica v3)
-- [f-ingenieria-orientada-objetos.md](f-ingenieria-orientada-objetos.md) — Ingeniería Orientada a Objetos
+- [g-metodologia-agil.md](g-metodologia-agil.md) — Metodología Ágil y Pair Programming

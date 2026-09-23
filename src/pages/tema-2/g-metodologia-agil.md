@@ -30,40 +30,7 @@ El cliente (o su representante, llamado **Product Owner** en Scrum) participa en
 
 ### Estándares de codificación compartidos
 
-Todo el equipo sigue las mismas convenciones de código. En Java esto incluye:
-- Nombres de clases en `PascalCase` (p. ej., `GestorPedidos`).
-- Nombres de métodos y variables en `camelCase` (p. ej., `calcularTotal`).
-- Atributos siempre `private`.
-- Comentarios explicativos cuando la lógica no es evidente.
-
-```java
-// Estándar compartido: todos los métodos de cálculo devuelven double
-// y no imprime nada por pantalla — eso es responsabilidad del main
-public class Cuenta {
-    private String titular;
-    private double saldo;
-
-    public Cuenta(String titular, double saldoInicial) {
-        this.titular = titular;
-        this.saldo = saldoInicial;
-    }
-
-    public boolean ingresar(double cantidad) {
-        if (cantidad <= 0) return false;
-        saldo += cantidad;
-        return true;
-    }
-
-    public boolean retirar(double cantidad) {
-        if (cantidad <= 0 || cantidad > saldo) return false;
-        saldo -= cantidad;
-        return true;
-    }
-
-    public double getSaldo() { return saldo; }
-    public String getTitular() { return titular; }
-}
-```
+Todo el equipo sigue las mismas convenciones a la hora de escribir código: cómo se nombran las cosas, cómo se organiza el trabajo y cómo se documentan las decisiones que no son evidentes a simple vista. Compartir estas normas evita que el código de cada persona del equipo parezca escrito por un equipo distinto.
 
 ### Evaluación regular del progreso
 
@@ -95,89 +62,37 @@ Los roles se intercambian con frecuencia (cada 15–30 minutos o al completar un
 
 ### Ejemplo de sesión de pair programming
 
-```
-Driver escribe:
-
-public double calcularMedia(int[] valores) {
-    int suma = 0;
-    for (int v : valores) {
-        suma += v;
-    }
-    return suma / valores.length;  // ← Navigator detecta: división entera, debería ser (double)
-}
-
-Navigator sugiere:
-    return (double) suma / valores.length;
-
-Código corregido antes de continuar:
-
-public double calcularMedia(int[] valores) {
-    int suma = 0;
-    for (int v : valores) {
-        suma += v;
-    }
-    return (double) suma / valores.length; // cast explícito para evitar truncado
-}
-```
+Imaginemos que el equipo necesita calcular la media de una lista de valores. El **driver** escribe una primera versión y, al terminar, algo no cuadra: el resultado sale redondeado hacia abajo cuando debería tener decimales. El **navigator**, que ha estado observando en lugar de teclear, detecta el problema antes de seguir avanzando y lo comenta en voz alta. Entre los dos corrigen el detalle antes de continuar con la siguiente funcionalidad. Ese es precisamente el valor del pair programming: el error se detecta y se corrige en segundos, no días después al ejecutar el programa.
 
 ---
 
-## Tests unitarios antes de la codificación (TDD)
+## Pruebas antes de la codificación (TDD)
 
-En entornos ágiles se practica con frecuencia el **Test-Driven Development (TDD)**: primero se escribe el test que define el comportamiento esperado, y después se implementa el código que lo hace pasar.
+En entornos ágiles se practica con frecuencia el **Test-Driven Development (TDD)**: antes de programar una funcionalidad, el equipo describe primero cómo debería comportarse y qué resultado se espera. Solo después se implementa la funcionalidad que cumple esa descripción.
 
 ```
-1. Escribir test (ROJO: el test falla porque el método no existe aún)
-2. Implementar el método mínimo para que el test pase (VERDE)
-3. Refactorizar el código manteniendo el test en verde (REFACTOR)
+1. Describir el comportamiento esperado (ROJO: la funcionalidad aún no existe)
+2. Implementar lo mínimo necesario para cumplir esa descripción (VERDE)
+3. Mejorar el código manteniendo el comportamiento correcto (REFACTOR)
 ```
 
-```java
-// Paso 1 — Test: verificar que calcularMedia([4, 8, 6]) devuelve 6.0
-public class EstadisticaTest {
-    public static void main(String[] args) {
-        Estadistica est = new Estadistica();
-        double resultado = est.calcularMedia(new int[]{4, 8, 6});
-        double esperado = 6.0;
-
-        if (resultado == esperado) {
-            System.out.println("TEST PASADO");
-        } else {
-            System.out.println("TEST FALLIDO: esperado=" + esperado + " obtenido=" + resultado);
-        }
-    }
-}
-```
-
-```java
-// Paso 2 — Implementación mínima que pasa el test
-public class Estadistica {
-    public double calcularMedia(int[] valores) {
-        if (valores == null || valores.length == 0) return 0;
-        int suma = 0;
-        for (int v : valores) {
-            suma += v;
-        }
-        return (double) suma / valores.length;
-    }
-}
-```
+Esta forma de trabajar obliga al equipo a tener claro *qué* debe hacer el software antes de decidir *cómo* lo va a hacer, y deja un conjunto de comprobaciones que permiten detectar rápidamente si un cambio posterior rompe algo que ya funcionaba.
 
 ---
 
 ## Resumen comparativo de metodologías
 
-| | Métrica v3 | IOO | Ágil |
-|--|-----------|-----|------|
-| **Orientación** | Proceso formal | Modelo de objetos | Personas y colaboración |
-| **Documentación** | Exhaustiva | Diagramas UML | Justa y necesaria |
-| **Participación cliente** | Inicio y aceptación | Variable | Continua |
-| **Adaptación al cambio** | Costosa | Media | Alta |
-| **Ámbito típico** | Administración pública | Proyectos OO | Startups y proyectos dinámicos |
+| | Métrica v3 | Ágil |
+|--|-----------|------|
+| **Orientación** | Proceso formal | Personas y colaboración |
+| **Documentación** | Exhaustiva | Justa y necesaria |
+| **Participación cliente** | Inicio y aceptación | Continua |
+| **Adaptación al cambio** | Costosa | Alta |
+| **Ámbito típico** | Administración pública | Startups y proyectos dinámicos |
 
 ---
 
 ## Archivos relacionados
 
 - [d-modelo-iterativo.md](d-modelo-iterativo.md) — Modelo Iterativo (base del desarrollo ágil)
-- [f-ingenieria-orientada-objetos.md](f-ingenieria-orientada-objetos.md) — Ingeniería Orientada a Objetos
+- [g-scrum-planificacion.md](g-scrum-planificacion.md) — Planificación Ágil con Scrum

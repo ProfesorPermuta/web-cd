@@ -43,7 +43,7 @@ Las fases fundamentales son:
 Es importante distinguir dos conceptos que a menudo se confunden:
 
 - Un **modelo de ciclo de vida** describe *qué fases* existen y en qué orden se ejecutan (p. ej., Cascada, Iterativo).
-- Una **metodología** concreta *cómo* se ejecutan esas fases: roles, artefactos, técnicas y herramientas (p. ej., Métrica v3, Agile, IOO).
+- Una **metodología** concreta *cómo* se ejecutan esas fases: roles, artefactos, técnicas y herramientas (p. ej., Métrica v3, Ágil).
 
 ```
 Modelo (estructura)   →   Metodología (detalle de ejecución)
@@ -56,19 +56,18 @@ Modelo (estructura)   →   Metodología (detalle de ejecución)
 
 En este tema estudiaremos:
 
-1. **Modelos de ciclo de vida**: Cascada, Prototipado, Iterativo.
-2. **Metodologías detalladas**: Métrica v3, Ingeniería Orientada a Objetos, Ágil.
-3. **Herramientas y técnicas**: tarjetas CRC, pair programming, tests unitarios.
+1. **Modelos de ciclo de vida**: Cascada, Iterativo.
+2. **Metodologías detalladas**: Métrica v3, Ágil.
+3. **Herramientas y técnicas**: tarjetas CRC, pair programming, planificación con Scrum.
 
 ---
 
 ## Archivos relacionados
 
 - [b-modelo-cascada.md](b-modelo-cascada.md) — Ciclo de vida en Cascada
-- [c-modelo-prototipado.md](c-modelo-prototipado.md) — Modelo de Prototipado
 - [d-modelo-iterativo.md](d-modelo-iterativo.md) — Modelo Iterativo y Adaptable
 - [e-metrica-v3.md](e-metrica-v3.md) — Métrica v3
-- [f-ingenieria-orientada-objetos.md](f-ingenieria-orientada-objetos.md) — Ingeniería Orientada a Objetos
 - [g-metodologia-agil.md](g-metodologia-agil.md) — Metodología Ágil y Pair Programming
+- [g-scrum-planificacion.md](g-scrum-planificacion.md) — Planificación Ágil con Scrum
 - [h-errores-comunes.md](h-errores-comunes.md) — Errores comunes
 - [i-ejercicios-y-soluciones.md](i-ejercicios-y-soluciones.md) — Ejercicios y soluciones

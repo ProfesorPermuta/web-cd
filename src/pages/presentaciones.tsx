@@ -16,6 +16,12 @@ const TEMAS_PRESENTACIONES: TemaPresentaciones[] = [
       { label: 'Tema 1: Control de Versiones con Git', href: '/presentaciones/tema1-git.html' },
     ],
   },
+  {
+    n: 2, title: 'Ingeniería de Software', color: '#10b981',
+    presentaciones: [
+      { label: 'Tema 2: Modelos y Metodologías de Desarrollo', href: '/presentaciones/tema2-ingenieria-software.html' },
+    ],
+  },
 ];
 
 /* ─── Tarjeta de tema ───────────────────────────────────────── */

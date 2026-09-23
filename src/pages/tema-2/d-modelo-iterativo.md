@@ -56,46 +56,7 @@ Se diseñan únicamente las clases y relaciones necesarias para las funcionalida
 
 ### 3. Codificación
 
-Se implementan las funcionalidades. En entornos ágiles, se aplica **pair programming** y se escriben **tests unitarios** antes o durante la codificación.
-
-```java
-// Test unitario escrito antes de implementar el método (enfoque TDD)
-// Verifica que calcularDescuento devuelve el 10% del precio base
-public class ProductoTest {
-    public static void main(String[] args) {
-        Producto producto = new Producto("Teclado", 100.0);
-        double descuentoEsperado = 10.0;
-        double descuentoReal = producto.calcularDescuento(10);
-
-        if (descuentoReal == descuentoEsperado) {
-            System.out.println("TEST PASADO");
-        } else {
-            System.out.println("TEST FALLIDO: esperado " + descuentoEsperado
-                    + " pero fue " + descuentoReal);
-        }
-    }
-}
-```
-
-```java
-// Implementación de la clase Producto
-public class Producto {
-    private String nombre;
-    private double precioBase;
-
-    public Producto(String nombre, double precioBase) {
-        this.nombre = nombre;
-        this.precioBase = precioBase;
-    }
-
-    public double calcularDescuento(double porcentaje) {
-        return precioBase * porcentaje / 100;
-    }
-
-    public String getNombre() { return nombre; }
-    public double getPrecioBase() { return precioBase; }
-}
-```
+Se implementan las funcionalidades seleccionadas. En entornos ágiles, se aplica **pair programming** y se prueba cada funcionalidad antes o durante la codificación, en lugar de dejar las pruebas para el final del proyecto.
 
 ### 4. Pruebas
 
@@ -134,5 +95,4 @@ El equipo presenta el entregable al cliente. Además, reflexiona sobre el propio
 ## Archivos relacionados
 
 - [b-modelo-cascada.md](b-modelo-cascada.md) — Modelo en Cascada
-- [c-modelo-prototipado.md](c-modelo-prototipado.md) — Modelo de Prototipado
 - [g-metodologia-agil.md](g-metodologia-agil.md) — Metodología Ágil y Pair Programming

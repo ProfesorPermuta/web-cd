@@ -28,10 +28,8 @@ const TEMAS: Tema[] = [
     pages: [
       { label: 'Introducción',                    href: '/tema-2/a-introduccion' },
       { label: 'Modelo Cascada',                  href: '/tema-2/b-modelo-cascada' },
-      { label: 'Modelo Prototipado',              href: '/tema-2/c-modelo-prototipado' },
       { label: 'Modelo Iterativo',                href: '/tema-2/d-modelo-iterativo' },
       { label: 'Métrica V3',                      href: '/tema-2/e-metrica-v3' },
-      { label: 'Ingeniería orientada a objetos',  href: '/tema-2/f-ingenieria-orientada-objetos' },
       { label: 'Metodología ágil',                href: '/tema-2/g-metodologia-agil' },
       { label: 'Scrum: planificación',            href: '/tema-2/g-scrum-planificacion' },
       { label: 'Errores comunes',                 href: '/tema-2/h-errores-comunes' },
