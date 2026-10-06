@@ -102,7 +102,8 @@ public class ElectricCar extends Car {
 }
 ```
 
-:::warning Java solo permite **herencia simple**: una clase puede extender únicamente a una clase padre. Para reutilizar comportamiento de múltiples fuentes, se usan **interfaces**.
+:::warning
+Java solo permite **herencia simple**: una clase puede extender únicamente a una clase padre. Para reutilizar comportamiento de múltiples fuentes, se usan **interfaces**.
 :::
 
 ---
@@ -207,7 +208,8 @@ public class Car extends Vehicle implements Drivable {
 }
 ```
 
-:::tip Una clase puede implementar **múltiples interfaces** al mismo tiempo, lo que resuelve la limitación de la herencia simple en Java:
+:::tip
+Una clase puede implementar **múltiples interfaces** al mismo tiempo, lo que resuelve la limitación de la herencia simple en Java:
 
 ```java
 public class Car extends Vehicle implements Drivable, Insurable { ... }

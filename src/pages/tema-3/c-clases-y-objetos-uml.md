@@ -55,7 +55,8 @@ El símbolo delante de cada atributo o método indica su **visibilidad**:
 | `#` | Protegido | `protected` |
 | `~` | Paquete | *(sin modificador)* |
 
-:::warning Buena práctica: los atributos de una clase de modelo **siempre deben ser privados** (`-`). Accede a ellos únicamente a través de métodos públicos (`+`).
+:::warning
+Buena práctica: los atributos de una clase de modelo **siempre deben ser privados** (`-`). Accede a ellos únicamente a través de métodos públicos (`+`).
 :::
 
 ---

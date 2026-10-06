@@ -16,7 +16,8 @@ Líneas ejecutadas por las pruebas
 - **Guiar la escritura de nuevas pruebas**: sabes exactamente qué queda sin cubrir.
 - **Requisito de calidad**: muchos proyectos exigen un mínimo del 80 % en CI.
 
-:::warning Una cobertura del 100 % no significa que el software no tenga errores. Una prueba puede ejecutar una línea sin verificar su resultado. La cobertura mide *ejecución*, no *corrección*.
+:::warning
+Una cobertura del 100 % no significa que el software no tenga errores. Una prueba puede ejecutar una línea sin verificar su resultado. La cobertura mide *ejecución*, no *corrección*.
 :::
 
 ---
@@ -174,7 +175,8 @@ void getName_returnsTheNamePassedToConstructor() {
 }
 ```
 
-:::tip El objetivo es **cobertura significativa**, no cobertura máxima. Una cobertura del 80 % con pruebas que verifican comportamiento real es mejor que un 100 % con pruebas vacías.
+:::tip
+El objetivo es **cobertura significativa**, no cobertura máxima. Una cobertura del 80 % con pruebas que verifican comportamiento real es mejor que un 100 % con pruebas vacías.
 :::
 
 ---

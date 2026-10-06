@@ -67,6 +67,7 @@ En este tema estudiaremos:
 - [b-modelo-cascada.md](b-modelo-cascada.md) — Ciclo de vida en Cascada
 - [d-modelo-iterativo.md](d-modelo-iterativo.md) — Modelo Iterativo y Adaptable
 - [e-metrica-v3.md](e-metrica-v3.md) — Métrica v3
+- [f-tarjetas-crc-y-casos-de-prueba.md](f-tarjetas-crc-y-casos-de-prueba.md) — Tarjetas CRC y casos de prueba
 - [g-metodologia-agil.md](g-metodologia-agil.md) — Metodología Ágil y Pair Programming
 - [g-scrum-planificacion.md](g-scrum-planificacion.md) — Planificación Ágil con Scrum
 - [h-errores-comunes.md](h-errores-comunes.md) — Errores comunes

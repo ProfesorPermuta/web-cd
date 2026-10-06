@@ -58,7 +58,8 @@ Ejemplos:
 + calculateInterest(rate: double, years: int): double
 ```
 
-:::tip Si un método no devuelve nada, el tipo de retorno es `void`. Si no tiene parámetros, los paréntesis van vacíos: `+ getBalance(): double`.
+:::tip
+Si un método no devuelve nada, el tipo de retorno es `void`. Si no tiene parámetros, los paréntesis van vacíos: `+ getBalance(): double`.
 :::
 
 ---
@@ -163,7 +164,8 @@ Una convención habitual es proporcionar:
 - Un **getter** (`getNombre()`) para leer un atributo privado.
 - Un **setter** (`setNombre(valor)`) para modificarlo, solo cuando sea necesario.
 
-:::warning No todos los atributos necesitan setter. Un `orderId` asignado en el constructor no debería poder cambiarse después. Añadir setters innecesarios rompe la encapsulación.
+:::warning
+No todos los atributos necesitan setter. Un `orderId` asignado en el constructor no debería poder cambiarse después. Añadir setters innecesarios rompe la encapsulación.
 :::
 
 ```java

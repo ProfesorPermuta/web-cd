@@ -83,7 +83,8 @@ flowchart TD
 - El **centro** son las pruebas de **integración**: verifican que los módulos funcionan juntos.
 - La **cima** son las pruebas **end-to-end**: simulan al usuario real, son lentas y frágiles.
 
-:::tip En este tema nos centraremos en las **pruebas unitarias**, que son la base de cualquier estrategia de calidad y la habilidad más demandada en el mercado laboral.
+:::tip
+En este tema nos centraremos en las **pruebas unitarias**, que son la base de cualquier estrategia de calidad y la habilidad más demandada en el mercado laboral.
 :::
 
 ---

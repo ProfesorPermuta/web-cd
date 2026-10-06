@@ -213,7 +213,8 @@ Car car = new Car("Toyota", 150);
 | **Agregación** | Rombo hueco `◇──` | Partes sobreviven al todo | Equipo – Jugadores |
 | **Composición** | Rombo relleno `◆──` | Partes mueren con el todo | Coche – Motor |
 
-:::tip Para decidir qué relación usar: pregúntate si las partes tienen sentido fuera del todo. Si no → composición. Si sí, pero forman un conjunto → agregación. Si simplemente se conocen → asociación.
+:::tip
+Para decidir qué relación usar: pregúntate si las partes tienen sentido fuera del todo. Si no → composición. Si sí, pero forman un conjunto → agregación. Si simplemente se conocen → asociación.
 :::
 
 ---

@@ -1,0 +1,981 @@
+<title>Entornos de Desenvolvemento — PROENS</title>
+<style>
+:root{
+  --bg:#faf9f7; --surface:#ffffff; --border:#e2ddd3;
+  --text:#2b2620; --text-dim:#6b6255;
+  --accent:#8a5a3b; --accent-soft:#f1e6db;
+  --head-bg:#2b2620; --head-text:#faf9f7;
+  --row-alt:#f4f1ec;
+  --check-bg:#8a5a3b; --check-border:#c9a688;
+  --group-band:#efe8dd;
+  --ud-band:#efe8dd;
+  --sans:"Inter",-apple-system,Segoe UI,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1815; --surface:#242019; --border:#3a342c;
+    --text:#eee8dd; --text-dim:#a89d8c;
+    --accent:#d3996a; --accent-soft:#332a20;
+    --head-bg:#100e0b; --head-text:#eee8dd;
+    --row-alt:#221e18; --check-bg:#d3996a; --check-border:#6b5540;
+    --group-band:#2a2419; --ud-band:#2a2419;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1815; --surface:#242019; --border:#3a342c;
+  --text:#eee8dd; --text-dim:#a89d8c;
+  --accent:#d3996a; --accent-soft:#332a20;
+  --head-bg:#100e0b; --head-text:#eee8dd;
+  --row-alt:#221e18; --check-bg:#d3996a; --check-border:#6b5540;
+  --group-band:#2a2419; --ud-band:#2a2419;
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);margin:0;padding-block:32px;}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:20px;}
+
+.page-head{margin-bottom:28px;}
+.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--accent);font-weight:700;margin-bottom:6px;}
+h1.page-title{font-family:var(--serif);font-size:30px;margin:0 0 6px;text-wrap:balance;}
+.page-sub{color:var(--text-dim);font-size:14px;margin-bottom:18px;line-height:1.5;}
+.toc{
+  display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface);
+}
+.toc a{
+  font-size:12.5px;font-weight:600;color:var(--text-dim);
+  text-decoration:none;padding:6px 10px;border-radius:7px;
+}
+.toc a:hover{color:var(--accent);background:var(--accent-soft);}
+
+section.block{
+  margin-top:44px;
+  padding-top:16px;
+  border-top:1px solid var(--border);
+  scroll-margin-top:16px;
+}
+section.block:first-of-type{border-top:none;padding-top:0;}
+.sec-eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;color:var(--accent);font-weight:700;margin-bottom:6px;}
+h2.sec-title{font-family:var(--serif);font-size:22px;margin:0 0 4px;text-wrap:balance;}
+.sec-sub{color:var(--text-dim);font-size:13.5px;margin-bottom:18px;line-height:1.5;}
+
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px;font-size:12.5px;color:var(--text-dim);align-items:center;}
+
+.table-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface);margin-bottom:14px;}
+table{border-collapse:collapse;width:100%;}
+table.tbl-seq{min-width:820px;}
+table.tbl-matrix{min-width:980px;}
+table.tbl-main{min-width:900px;}
+table.tbl-mini-matrix{min-width:520px;}
+
+thead th{
+  background:var(--head-bg);color:var(--head-text);
+  font-size:12px;padding:10px 8px;text-align:center;white-space:nowrap;
+  position:sticky;top:0;
+}
+thead th.col-wide{text-align:left;padding-left:16px;}
+thead th.col-titulo{width:170px;text-align:left;padding-left:14px;}
+thead th.col-desc{width:auto;text-align:left;}
+thead th.col-num{width:90px;}
+
+tbody tr:nth-child(even){background:var(--row-alt);}
+tbody tr:hover td{background:var(--accent-soft);}
+
+td{padding:0;border-bottom:1px solid var(--border);vertical-align:top;font-size:13.5px;}
+.cell{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:11px 13px;height:100%;}
+.cell.desc{font-family:var(--serif);line-height:1.55;}
+.cell.num{font-variant-numeric:tabular-nums;justify-content:center;text-align:center;}
+.cell .val{flex:1;}
+.copy-btn{
+  flex:none;border:1px solid var(--border);background:var(--surface);
+  color:var(--text-dim);font-size:10.5px;line-height:1;padding:5px 6px;
+  border-radius:6px;cursor:pointer;font-family:var(--sans);
+}
+.copy-btn:hover{color:var(--accent);border-color:var(--accent);}
+.copy-btn.copied{color:#3a8a5c;border-color:#3a8a5c;}
+
+tr.group-row td, tr.ud-row td{
+  background:var(--group-band);
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:14px;
+  padding:10px 16px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+table.tbl-matrix thead th.item-head{text-align:left;padding-left:16px;min-width:320px;}
+table.tbl-matrix tbody tr.item-row td{
+  border-bottom:1px solid var(--border);
+  font-size:13px;padding:9px 8px;text-align:center;
+}
+table.tbl-matrix tbody tr.item-row td.item-label{
+  text-align:left;padding-left:16px;font-family:var(--serif);line-height:1.45;
+}
+.item-code{color:var(--accent);font-weight:700;font-family:var(--sans);font-size:12px;margin-right:4px;}
+.min-no{color:var(--text-dim);font-style:italic;}
+
+.dot{
+  display:inline-block;width:16px;height:16px;border-radius:4px;
+  border:1.5px solid var(--check-border);
+}
+.dot.on{background:var(--check-bg);border-color:var(--check-bg);position:relative;}
+.dot.on::after{
+  content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+}
+
+.ud-block{margin-top:30px;}
+.ud-block:first-child{margin-top:0;}
+.ud-title{font-family:var(--serif);font-size:18px;font-weight:600;margin:0 0 4px;}
+.ud-meta{font-size:12.5px;color:var(--text-dim);margin-bottom:12px;}
+.matrix-title{
+  font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--accent);font-weight:700;margin:14px 0 8px;
+}
+table.tbl-mini-matrix thead th{text-align:center;font-size:11px;padding:8px 6px;white-space:nowrap;}
+table.tbl-mini-matrix thead th.code-head{text-align:left;padding-left:14px;min-width:90px;}
+table.tbl-mini-matrix tbody tr td{
+  border-bottom:1px solid var(--border);font-size:12.5px;padding:8px 6px;text-align:center;
+}
+table.tbl-mini-matrix tbody tr td.code-label{
+  text-align:left;padding-left:14px;font-family:var(--sans);
+  font-weight:700;color:var(--accent);white-space:nowrap;
+}
+
+.hint{font-size:12px;color:var(--text-dim);margin-top:12px;}
+
+.design-ud-title{
+  font-family:var(--serif);font-size:18px;font-weight:600;
+  margin:30px 0 14px;
+}
+.design-ud-title:first-of-type{margin-top:0;}
+.design-grid{display:flex;flex-direction:column;gap:14px;}
+.design-card{
+  border:1px solid var(--border);border-radius:10px;
+  background:var(--surface);overflow:hidden;
+}
+.design-card-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+  padding:12px 16px;background:var(--group-band);
+  border-bottom:1px solid var(--border);
+}
+.design-card-head h3{
+  font-family:var(--serif);font-size:15.5px;font-weight:600;margin:0;
+  line-height:1.4;
+}
+.design-fields{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+}
+@media (max-width:720px){
+  .design-fields{grid-template-columns:1fr;}
+}
+.design-field{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);
+}
+.design-field:nth-child(2n){border-right:none;}
+.design-field:nth-last-child(-n+2){border-bottom:none;}
+.design-field-label{
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--accent);font-weight:700;margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.design-field-body{font-family:var(--serif);font-size:13.5px;line-height:1.55;}
+.design-field-body ul{margin:0;padding-left:18px;}
+.design-field-body li{margin-bottom:3px;}
+.design-field-body li:last-child{margin-bottom:0;}
+.design-field-body.empty{color:var(--text-dim);font-style:italic;}
+
+.text-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:24px 28px;margin-bottom:14px;
+}
+.text-card p{
+  font-family:var(--serif);font-size:15.5px;line-height:1.75;margin:0 0 14px;
+}
+.text-card p:last-child{margin-bottom:0;}
+.text-card-tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+</style>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="eyebrow">PROENS · Programación didáctica</div>
+    <h1 class="page-title">Entornos de Desenvolvemento (0487)</h1>
+    <div class="page-sub">CFGS DAM/DAW · Módulo 0487 · 50 horas de programación escaladas a <strong>94 sesións de 50 minutos</strong> (total esixido por PROENS) · Curso 2025/2026 · Numeración de UD igual á da programación de orixe (UD1–UD6).</div>
+    <nav class="toc">
+      <a href="#avaliacion-inicial">0. Avaliación inicial</a>
+      <a href="#ambito-produtivo">1.1 Ámbito produtivo</a>
+      <a href="#seq">1. Secuencia de UD</a>
+      <a href="#criterios">2. Criterios × UD</a>
+      <a href="#contidos">3. Contidos × UD</a>
+      <a href="#avaliacion-ud">3.3 Avaliación das UD</a>
+      <a href="#actividades">4. Actividades por UD</a>
+      <a href="#diseno">5. Deseño das actividades</a>
+      <a href="#cualificacion">6. Cualificación e recuperación</a>
+      <a href="#pendentes">6.2 Materias pendentes</a>
+      <a href="#perda-continua">6.3 Perda avaliación continua</a>
+      <a href="#seguimento">7. Seguimento e avaliación da práctica docente</a>
+      <a href="#reforzo">7.1 Medidas de reforzo</a>
+      <a href="#valores">8.1 Educación en valores</a>
+      <a href="#extraescolares">9.1 Actividades complementarias</a>
+      <a href="#outros">11.1 Outros apartados</a>
+    </nav>
+  </div>
+
+  <!-- ============ 0. AVALIACIÓN INICIAL ============ -->
+  <section class="block" id="avaliacion-inicial">
+    <div class="sec-eyebrow">PROENS · 0</div>
+    <h2 class="sec-title">Procedemento de avaliación inicial</h2>
+    <div class="sec-sub">Campo de texto libre. Comproba coñecemento xeral de informática (software, internet), sen entrar en código, xa que o módulo non presupón coñecementos previos de programación.</div>
+
+    <div class="text-card" id="aval-inicial-block">
+      <p>Durante as primeiras sesións da UD1 (Control de versións con Git), como arranque do módulo, realízase unha avaliación inicial de carácter non cualificador. O seu obxectivo é comprobar o grao de coñecemento xeral de informática do alumnado antes de entrar en materia: que é un programa informático, que é o software e para que serve, nocións básicas de internet e da web, e familiaridade elemental co uso dun ordenador e do sistema operativo. Non se aborda en ningún caso código nin lóxica de programación, xa que iso corresponde aos contidos propios do módulo e doutros módulos do ciclo, e o obxectivo desta proba é exclusivamente situar o punto de partida do grupo respecto a conceptos xerais de informática.</p>
+      <p>O instrumento empregado é un cuestionario individual breve, de resposta curta ou tipo test, con preguntas conceptuais sobre software, hardware, internet e conceptos informáticos xerais, complementado coa observación directa do profesorado durante as primeiras sesións de presentación e configuración do posto de traballo. Esta observación permite detectar, ademais, dificultades básicas de manexo do ordenador que un cuestionario escrito non sempre revela.</p>
+      <p>Os resultados non xeran cualificación en ningún caso. A nivel individual, permiten activar as medidas de reforzo ou atención á diversidade xa previstas na programación para o alumnado que amose maiores carencias. A nivel de grupo, permiten axustar o ritmo e o nivel de explicación das primeiras sesións introdutorias ao punto de partida real do alumnado, sen alterar en ningún caso os resultados de aprendizaxe nin os criterios de avaliación establecidos no currículo do módulo.</p>
+      <p>O resultado da avaliación inicial queda rexistrado internamente polo profesorado (rexistro de aula) e, cando procede, comunícase de forma individualizada ao alumnado que precise reforzo. Non xera anotación ningunha en actas nin no expediente académico.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="aval-inicial-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado a partir dos datos indicados polo usuario: proba centrada en coñecemento xeral de informática (software, internet), sen código. Non se inventaron competencias previas adicionais.</div>
+  </section>
+
+  <!-- ============ 1.1 CONCRECIÓN DO CURRÍCULO NO ÁMBITO PRODUTIVO ============ -->
+  <section class="block" id="ambito-produtivo">
+    <div class="sec-eyebrow">PROENS · 1.1</div>
+    <h2 class="sec-title">Concreción do currículo no ámbito produtivo</h2>
+    <div class="sec-sub">Campo de texto libre.</div>
+
+    <div class="text-card" id="ambito-produtivo-block">
+      <p>O módulo <em>Entornos de Desenvolvemento</em> concrétase tendo como referencia o perfil profesional dun/dunha desenvolvedor/a de aplicacións en empresas de desenvolvemento de software de carácter xenérico (consultoras tecnolóxicas, software factories e departamentos de TI de empresas doutros sectores), sen restrinxirse a un sector produtivo concreto. Este enfoque é coherente co carácter transversal do módulo dentro do ciclo: as competencias que traballa (control de versións, metodoloxías de desenvolvemento, programación orientada a obxectos, probas de software, calidade de código e modelado UML) constitúen a base instrumental común a calquera posto de desenvolvemento, con independencia do dominio de negocio da aplicación.</p>
+      <p>A concreción no ámbito produtivo tradúcese en manter, ao longo das unidades didácticas, as prácticas e ferramentas efectivamente empregadas nas empresas do sector TIC: control de versións distribuído con Git e repositorios remotos en provedores estándar (GitHub, GitLab, Bitbucket), metodoloxías áxiles (Scrum) como marco de traballo predominante fronte a modelos puramente en cascada, probas automatizadas e integración continua como parte do ciclo de desenvolvemento habitual, e ferramentas de análise estática de código e control de calidade integradas no contorno de desenvolvemento. Deste xeito, o alumnado adquire non só coñecemento técnico senón tamén a forma de traballar propia dun equipo de desenvolvemento profesional.</p>
+      <p>Esta orientación cara ao ámbito produtivo xenérico permite ademais que as competencias adquiridas sexan directamente transferibles á formación en centros de traballo (FCT) e á incorporación posterior ao mercado laboral, independentemente do sector concreto (banca, sanidade, administración pública, comercio electrónico, etc.) no que o alumnado desenvolva a súa actividade profesional.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="ambito-produtivo-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado sobre a base de empresas de desenvolvemento de software xenéricas (consultoras/software factories), tal como se indicou, ao non concretar a programación de orixe un sector produtivo específico.</div>
+  </section>
+
+  <!-- ============ 1. SECUENCIA DE UD ============ -->
+  <section class="block" id="seq">
+    <div class="sec-eyebrow">PROENS · 1</div>
+    <h2 class="sec-title">Secuencia de unidades didácticas</h2>
+    <div class="sec-sub">6 UD, escaladas das 50 horas da programación de orixe ás 94 sesións de 50 min esixidas por PROENS (94 = 50h × 60min ÷ 50min, redondeado e axustado para cadrar exactamente). Peso de cada UD proporcional ás súas sesións sobre o total.</div>
+
+    <div class="table-scroll">
+      <table class="tbl-seq" id="seq-table">
+        <thead>
+          <tr>
+            <th class="col-titulo">Título UD</th>
+            <th class="col-desc">Descripción</th>
+            <th class="col-num">Nº sesións</th>
+            <th class="col-num">% peso</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="hint">Suma de sesións: 94 (coincide exactamente co total esixido por PROENS). Suma de % de peso: 100 %.</div>
+  </section>
+
+  <!-- ============ 2. CRITERIOS x UD ============ -->
+  <section class="block" id="criterios">
+    <div class="sec-eyebrow">PROENS · 2</div>
+    <h2 class="sec-title">Criterios de avaliación × Unidades Didácticas</h2>
+    <div class="sec-sub">Agrupado por RA (RA1–RA6). RA2 (instalación, personalización e uso do IDE) traballa de forma transversal en todas as UD, tal como indica a programación de orixe.</div>
+
+    <div class="legend">
+      <span><span class="dot on"></span> Traballado nesa UD</span>
+      <span><span class="dot"></span> Non traballado nesa UD</span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="tbl-matrix" id="criterios-table">
+        <thead>
+          <tr>
+            <th class="item-head">Criterio de avaliación</th>
+            __UD_HEADERS__
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="hint">Códigos RAn.m derivados da numeración de criterios de avaliación de cada RA tal como aparecen na programación de orixe (letras convertidas a números correlativos).</div>
+  </section>
+
+  <!-- ============ 3. CONTIDOS x UD ============ -->
+  <section class="block" id="contidos">
+    <div class="sec-eyebrow">PROENS · 3</div>
+    <h2 class="sec-title">Bloques de contidos × Unidades Didácticas</h2>
+    <div class="sec-sub">Agrupado por bloque de contido (BC1–BC6), un bloque por UD tal como se estrutura a programación de orixe (non hai contidos transversais neste módulo, ao non existir un bloque final de "programación de compoñentes").</div>
+
+    <div class="legend">
+      <span><span class="dot on"></span> Traballado nesa UD</span>
+      <span><span class="dot"></span> Non traballado nesa UD</span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="tbl-matrix" id="contidos-table">
+        <thead>
+          <tr>
+            <th class="item-head">Contido</th>
+            __UD_HEADERS__
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="hint">Nomes e numeración de bloques construídos a partir da estrutura de contidos de cada UD na programación de orixe (un bloque BC por UD).</div>
+  </section>
+
+  <!-- ============ 3.3 DESEÑO DAS UD: AVALIACIÓN ============ -->
+  <section class="block" id="avaliacion-ud">
+    <div class="sec-eyebrow">PROENS · 3.3</div>
+    <h2 class="sec-title">Deseño das unidades didácticas: avaliación (instrumentos e peso)</h2>
+    <div class="sec-sub">Cada unidade didáctica avalíase mediante un exame liberatorio propio. Se o alumnado supera o exame liberatorio dunha UD, esa UD queda superada e non entra na proba final; se non o supera, os seus criterios de avaliación inclúense na proba final de recuperación (ver sección 6.3).</div>
+
+    <div class="table-scroll">
+      <table class="tbl-main" id="eval-ud-table">
+        <thead>
+          <tr>
+            <th class="col-titulo" style="width:230px;">Unidade didáctica</th>
+            <th class="col-desc" style="min-width:320px;">Instrumento de avaliación</th>
+            <th class="col-num" style="width:110px;">Peso na UD</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="hint">Cada exame liberatorio pondérase un 70 % sobre a cualificación da UD, complementado cun 30 % de exercicios/proxectos prácticos da propia UD (coherente coa ponderación xeral do módulo na sección 6). O exame liberatorio avalía o conxunto dos criterios de avaliación (CA) traballados nesa UD segundo a sección 2.</div>
+  </section>
+
+  <!-- ============ 4. ACTIVIDADES POR UD ============ -->
+  <section class="block" id="actividades">
+    <div class="sec-eyebrow">PROENS · 4</div>
+    <h2 class="sec-title">Actividades por Unidade Didáctica</h2>
+    <div class="sec-sub">As sesións de cada UD repártense entre as súas actividades ponderando por complexidade relativa (as actividades de maior peso —diagramas completos, refactorización guiada, integración continua— levan máis sesións que as máis mecánicas).</div>
+
+    <div class="table-scroll">
+      <table class="tbl-main" id="act-main-table">
+        <thead>
+          <tr>
+            <th class="col-titulo" style="width:230px;">Actividade</th>
+            <th class="col-desc" style="min-width:320px;">Descrición</th>
+            <th class="col-num" style="width:70px;">Sesións</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="hint">A suma de sesións das actividades de cada UD coincide exactamente coas sesións desa UD na sección 1.</div>
+
+    <div class="legend" style="margin-top:20px;">
+      <span><span class="dot on"></span> Traballado nesa actividade</span>
+      <span><span class="dot"></span> Non traballado nesa actividade</span>
+    </div>
+
+    <div id="act-ud-blocks"></div>
+  </section>
+
+  <!-- ============ 5. DESEÑO DAS ACTIVIDADES ============ -->
+  <section class="block" id="diseno">
+    <div class="sec-eyebrow">PROENS · 5</div>
+    <h2 class="sec-title">Deseño das actividades</h2>
+    <div class="sec-sub">Unha tarxeta por actividade (mesmo código e título que na sección 4), con descrición, obxectivos específicos derivados dos CA vinculados, resultados/produtos entregables e recursos específicos máis alá do contorno base do curso (IDE, JDK, Git).</div>
+    <div id="diseno-blocks"></div>
+  </section>
+
+  <!-- ============ 6. CUALIFICACIÓN E RECUPERACIÓN ============ -->
+  <section class="block" id="cualificacion">
+    <div class="sec-eyebrow">PROENS · 6</div>
+    <h2 class="sec-title">Criterios de cualificación e procedemento de recuperación</h2>
+    <div class="sec-sub">Campo de texto libre, baseado nos criterios de calificación xa establecidos na programación de orixe (apartado 5.1–5.3).</div>
+
+    <div class="text-card" id="cualif-block">
+      <p>A cualificación do módulo pondérase a partir de tres instrumentos de avaliación: as probas obxectivas/escritas, cun peso do 20 %, que avalían a asimilación dos contidos teóricos de cada unidade (fases do desenvolvemento, metodoloxías, UML, tipos de proba, principios SOLID, etc.); os exercicios e proxectos prácticos por unidade, cun peso do 60 %, que constitúen o groso da cualificación por ser un módulo eminentemente procedimental onde o alumnado debe demostrar a competencia sobre as ferramentas e técnicas traballadas (repositorios Git, diagramas UML, baterías de probas, refactorizacións, etc.); e a observación directa do uso do contorno de desenvolvemento, do control de versións e da actitude do alumnado, cun peso do 20 %, coherente co carácter transversal do RA2 ao longo de todas as UD.</p>
+      <p>Considérase superado o módulo cando se alcanza unha cualificación final mínima de 5 sobre 10 na media ponderada dos tres instrumentos, sempre que se teñan entregado e superado as actividades prácticas mínimas esixidas en cada unidade didáctica. Isto implica que unha media global igual ou superior a 5 non é suficiente por si soa se non se cumpriu ademais a entrega e superación mínima das actividades prácticas de cada UD; en tal caso, o módulo non se considera superado ata que se resolvan as unidades pendentes.</p>
+      <p>O alumnado que non supere algunha unidade didáctica dispón dunha proba ou entrega de recuperación específica sobre os criterios de avaliación non alcanzados nesa unidade, previa á avaliación final do módulo. A recuperación céntrase exclusivamente nos criterios non superados, non en todo o módulo, mantendo a mesma ponderación de instrumentos (probas obxectivas, exercicios/proxectos prácticos e observación directa) aplicada ao contido pendente.</p>
+      <p>Esta cualificación conecta directamente coas seccións 1–5 desta programación: os exercicios e proxectos prácticos do 60 % corresponden ás actividades de ensino-aprendizaxe detalladas na sección 4 e deseñadas na sección 5 de cada UD, e as probas obxectivas do 20 % avalían os criterios de avaliación (CA) recollidos na sección 2 para cada unidade.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="cualif-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado a partir dos criterios de calificación xa recollidos na programación de orixe (apartado 5.1–5.3): 20 % probas obxectivas + 60 % exercicios/proxectos prácticos + 20 % observación directa; mínimo 5/10 coa entrega e superación das actividades mínimas por UD; recuperación específica por UD non superada.</div>
+  </section>
+
+  <!-- ============ 6.2 SEGUIMENTO E AVALIACIÓN DAS MATERIAS PENDENTES ============ -->
+  <section class="block" id="pendentes">
+    <div class="sec-eyebrow">PROENS · 6.2</div>
+    <h2 class="sec-title">Seguimento e avaliación das materias pendentes</h2>
+    <div class="sec-sub">Campo de texto libre.</div>
+
+    <div class="text-card" id="pendentes-block">
+      <p>O carácter modular deste ciclo formativo implica que non existe a figura de "módulo pendente" no sentido en que se entende noutras ensinanzas: cada módulo profesional avalíase e cualifícase de forma independente dentro do curso en que se imparte, sen posibilidade de arrastralo como materia pendente ao curso seguinte mantendo a matrícula ordinaria doutros módulos.</p>
+      <p>En consecuencia, o alumnado que non supere o módulo <em>Entornos de Desenvolvemento</em> nunha convocatoria non dispón dun procedemento de seguimento de "pendentes" paralelo, senón que debe matricularse de novo no módulo completo nunha edición posterior do ciclo, cursándoo de forma ordinaria (con asistencia ás sesións, seguimento das unidades didácticas e avaliación continua) ou, se procede segundo a normativa vixente, optando pola proba de avaliación establecida para quen perdeu o dereito á avaliación continua (ver apartado 6.3) se se dá esa circunstancia.</p>
+      <p>Non se establecen, polo tanto, indicadores nin calendario específico de seguimento de materias pendentes para este módulo, ao non ser aplicable esta figura dentro da estrutura modular do ciclo.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="pendentes-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado segundo o indicado: o carácter modular do ciclo fai que non exista alumnado con esta materia pendente; non superar o módulo implica repetilo.</div>
+  </section>
+
+  <!-- ============ 6.3 PROBA PARA ALUMNADO CON PERDA DE DEREITO Á AVALIACIÓN CONTINUA ============ -->
+  <section class="block" id="perda-continua">
+    <div class="sec-eyebrow">PROENS · 6.3</div>
+    <h2 class="sec-title">Proba para o alumnado con perda de dereito á avaliación continua</h2>
+    <div class="sec-sub">Campo de texto libre.</div>
+
+    <div class="text-card" id="perda-continua-block">
+      <p>O alumnado que perda o dereito á avaliación continua, de acordo coa normativa de faltas de asistencia vixente no centro, realizará un exame único que abrangue a totalidade dos contidos do módulo, correspondentes ás seis unidades didácticas (UD1 a UD6) descritas nesta programación.</p>
+      <p>O exame único inclúe cuestións teóricas e supostos prácticos sobre os contidos e criterios de avaliación de todas as UD: control de versións con Git, enxeñaría do software e metodoloxías de desenvolvemento, programación orientada a obxectos e diagrama de clases UML, deseño e realización de probas de software, código limpo e refactorización, e diagramas de comportamento UML. Ao substituír o conxunto de instrumentos da avaliación continua (exames liberatorios por UD, exercicios e proxectos prácticos, e observación directa), o exame único pondérase ao 100 % da cualificación final do módulo para este alumnado.</p>
+      <p>Considérase superado o módulo mediante esta vía cando se alcanza unha cualificación mínima de 5 sobre 10 no exame único. Non se aplica neste caso a esixencia de superación mínima por unidade didáctica propia da avaliación continua (sección 6), ao substituírse por unha proba global e unitaria sobre todo o contido do módulo.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="perda-continua-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado segundo o indicado: exame único con todo o contido do módulo, substituíndo por completo os instrumentos da avaliación continua.</div>
+  </section>
+
+  <!-- ============ 7. SEGUIMENTO E AVALIACIÓN DA PRÁCTICA DOCENTE ============ -->
+  <section class="block" id="seguimento">
+    <div class="sec-eyebrow">PROENS · 7</div>
+    <h2 class="sec-title">Procedemento de seguimento da programación e avaliación da práctica docente</h2>
+    <div class="sec-sub">Campo de texto libre. A programación de orixe non trae un apartado explícito de seguimento; proponse un conxunto estándar de indicadores.</div>
+
+    <div class="text-card" id="seguimento-block">
+      <p>O seguimento da programación didáctica realízase de forma periódica nas reunións ordinarias do departamento ao longo do curso, cunha revisión adicional de peche ao finalizar o módulo, na que se valora o desenvolvemento global e se recollen as propostas de mellora para o curso seguinte.</p>
+      <p>Establécense como indicadores de seguimento: o grao de cumprimento da temporalización prevista por unidade didáctica (fonte: diario de aula e rexistro de sesións impartidas), tomando como umbral de alerta unha desviación superior ao 10 % das sesións previstas nunha UD; a porcentaxe de alumnado que supera cada resultado de aprendizaxe e o módulo no seu conxunto (fonte: rexistro de cualificacións), cun umbral de revisión cando a taxa de superación dun RA cae por debaixo do 70 %; a valoración da carga de traballo e da dificultade percibida polo alumnado en cada UD (fonte: enquisa ao alumnado ao remate do módulo); e a vixencia da contorna tecnolóxica empregada (versións de IDE, JDK, JUnit e demais ferramentas), revisada anualmente antes do inicio do curso.</p>
+      <p>A autoavaliación da práctica docente recóllese mediante unha enquisa anónima ao alumnado ao final do módulo, que valora a claridade das explicacións, o ritmo das sesións, a adecuación dos materiais do curso (Temas 1 a 6) e a utilidade da metodoloxía de aprendizaxe baseada en proxectos empregada para conectar as distintas UD arredor dun mesmo caso de estudo. Compleméntase cun autoinforme do profesorado que recolle a súa propia valoración sobre o desenvolvemento das sesións e as incidencias detectadas.</p>
+      <p>Os resultados de ambos os dous seguimentos (indicadores e autoavaliación) recóllense nunha memoria de fin de curso con propostas concretas de mellora para a seguinte edición do módulo: por exemplo, actualizar as versións da pila tecnolóxica empregada, axustar a temporalización das UD que superasen o umbral de desviación, ou reforzar os materiais das UD peor valoradas na enquisa do alumnado.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="seguimento-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">A programación de orixe non detalla indicadores de seguimento; proponse un conxunto estándar (temporalización, taxa de superación por RA/módulo, enquisa de satisfacción, vixencia da pila tecnolóxica), a confirmar ou substituír polo departamento se dispón de indicadores propios.</div>
+  </section>
+
+  <!-- ============ 7.1 MEDIDAS DE REFORZO EDUCATIVO ============ -->
+  <section class="block" id="reforzo">
+    <div class="sec-eyebrow">PROENS · 7.1</div>
+    <h2 class="sec-title">Medidas de reforzo educativo</h2>
+    <div class="sec-sub">Campo de texto libre, baseado no apartado 6 (Atención á diversidade) da programación de orixe.</div>
+
+    <div class="text-card" id="reforzo-block">
+      <p>As medidas de reforzo educativo actívanse cando se detecta, ben na avaliación inicial (sección 0), ben no seguimento ordinario de cada unidade didáctica, que parte do alumnado non alcanza o ritmo de progreso agardado nos criterios de avaliación traballados. A detección realízase mediante observación directa do profesorado durante as sesións prácticas e a partir dos resultados dos exames liberatorios e das entregas de actividades por UD.</p>
+      <p>Como medida principal de reforzo, o alumnado que o precise dispón das guías paso a paso e dos exercicios resoltos incluídos no apartado "Ejercicios y soluciones" de cada tema (Temas 1 a 6) publicados na plataforma web do aula. Estes materiais permiten un traballo autónomo guiado sobre os contidos e criterios de avaliación non consolidados, sen necesidade de agrupamentos específicos nin de adaptar a temporalización xeral do grupo.</p>
+      <p>O profesorado fai seguimento da evolución do alumnado que emprega estas medidas de reforzo a través da observación directa nas sesións seguintes e da comprobación de que os exercicios de reforzo se completan correctamente, reincorporando ao alumnado ao ritmo ordinario do grupo unha vez consolidados os criterios de avaliación pendentes.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="reforzo-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado a partir do apartado 6 (Atención á diversidade) xa existente na programación de orixe: guías paso a paso e exercicios resoltos de cada tema, ampliado a un procedemento (detección, aplicación, seguimento).</div>
+  </section>
+
+  <!-- ============ 8.1 EDUCACIÓN EN VALORES ============ -->
+  <section class="block" id="valores">
+    <div class="sec-eyebrow">PROENS · 8.1</div>
+    <h2 class="sec-title">Educación en valores</h2>
+    <div class="sec-sub">Campo de texto libre. Valores propios do traballo colaborativo en desenvolvemento de software.</div>
+
+    <div class="text-card" id="valores-block">
+      <p>Desde este módulo trabállanse de forma transversal valores propios do exercicio profesional do desenvolvemento de software en equipo. En particular, o traballo en equipo e o respecto mutuo practícanse nas actividades de fluxo colaborativo con Git (UD1) e nas revisións de código mediante pull requests, onde o alumnado debe dar e recibir retroalimentación de forma construtiva sobre o traballo dos compañeiros e compañeiras.</p>
+      <p>A honestidade intelectual traballase esixindo a orixinalidade do código entregado e a correcta atribución de calquera fonte externa empregada, incluíndo, de ser o caso, o uso responsable e declarado de ferramentas de intelixencia artificial como apoio ao desenvolvemento, evitando o plaxio e fomentando a comprensión real do código propio fronte á súa simple copia.</p>
+      <p>O rigor e a responsabilidade profesional trabállanse a través da calidade esixida no código entregado (probas, documentación, ausencia de erros comúns) e do cumprimento dos prazos de entrega das actividades, como reflexo das esixencias reais dun contorno de traballo profesional.</p>
+      <p>Finalmente, promóvese a igualdade de xénero no ámbito das tecnoloxías da información, visibilizando referentes femininos na historia da informática e do desenvolvemento de software cando xurda a ocasión nas explicacións, e velando por unha composición equilibrada e respectuosa nos agrupamentos para as actividades colaborativas.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="valores-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado segundo o indicado: valores propios do traballo colaborativo en desenvolvemento de software (traballo en equipo, honestidade intelectual, rigor profesional, igualdade de xénero no ámbito TIC).</div>
+  </section>
+
+  <!-- ============ 9.1 ACTIVIDADES COMPLEMENTARIAS E EXTRAESCOLARES ============ -->
+  <section class="block" id="extraescolares">
+    <div class="sec-eyebrow">PROENS · 9.1</div>
+    <h2 class="sec-title">Actividades complementarias e extraescolares</h2>
+    <div class="sec-sub">Campo de texto libre.</div>
+
+    <div class="text-card" id="extraescolares-block">
+      <p>Non se prevén actividades complementarias nin extraescolares específicas para o módulo <em>Entornos de Desenvolvemento</em>. Isto non exclúe a participación do alumnado deste módulo nas actividades complementarias e extraescolares de carácter xeral que organice o centro ou o departamento ao longo do curso, sen que estas formen parte da programación propia deste módulo.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="extraescolares-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Redactado segundo o indicado: non se prevén actividades específicas do módulo.</div>
+  </section>
+
+  <!-- ============ 11.1 OUTROS APARTADOS ============ -->
+  <section class="block" id="outros">
+    <div class="sec-eyebrow">PROENS · 11.1</div>
+    <h2 class="sec-title">Outros apartados</h2>
+    <div class="sec-sub">Campo de texto libre.</div>
+
+    <div class="text-card" id="outros-block">
+      <p>Non se recolle contido adicional máis alá do xa desenvolvido nas seccións anteriores desta programación didáctica.</p>
+    </div>
+
+    <div class="text-card-tools">
+      <button class="copy-btn" data-copy-block="outros-block" style="padding:8px 14px;font-size:12.5px;">Copiar texto completo</button>
+    </div>
+    <div class="hint">Sección deixada como marcador xenérico por se o departamento quere engadir contido específico non recollido noutro apartado de PROENS.</div>
+  </section>
+</div>
+
+<script>
+const N_UD = 6;
+
+const seqData = [
+  { t:"UD1. Control de versións con Git", d:"Sistemas de control de versións distribuído, repositorios remotos, ramas, fusión e resolución de conflitos, e fluxos de traballo colaborativos (Gitflow, pull requests).", s:15, p:16 },
+  { t:"UD2. Enxeñaría do software e metodoloxías de desenvolvemento", d:"Fases do desenvolvemento dunha aplicación, modelos de ciclo de vida, Métrica v3 e metodoloxías áxiles (Scrum: planificación, roles e artefactos).", s:15, p:16 },
+  { t:"UD3. Programación orientada a obxectos e diagrama de clases UML", d:"Paradigma OO, notación UML de clases, relacións (asociación, herdanza, composición), xeración de código a partir de diagramas e enxeñaría inversa.", s:19, p:20 },
+  { t:"UD4. Deseño e realización de probas de software", d:"Tipos de probas, casos de proba, probas unitarias con JUnit 5, dobres de proba, cobertura de código, integración continua e documentación de incidencias.", s:19, p:20 },
+  { t:"UD5. Código limpo, refactorización e optimización", d:"Principios SOLID, patróns de deseño, refactorización guiada apoiada en probas, analizadores de código estático e documentación de clases.", s:15, p:16 },
+  { t:"UD6. Diagramas de comportamento UML", d:"Diagramas de casos de uso, secuencia, actividade e estados; notación estándar UML aplicada a un caso de estudo común.", s:11, p:12 },
+];
+
+const criteriosData = [
+  { group:"RA1", nombre:"Identifica as fases do desenvolvemento de aplicacións informáticas e as ferramentas asociadas.", items:[
+      { c:"RA1.1", t:"Relaciona os programas informáticos cos compoñentes do sistema informático.", uds:[2] },
+      { c:"RA1.2", t:"Recoñece as fases de desenvolvemento dunha aplicación informática.", uds:[2] },
+      { c:"RA1.3", t:"Diferencia código fonte, código obxecto e código executable.", uds:[2] },
+      { c:"RA1.4", t:"Recoñece a xeración de código intermedio e o uso de máquinas virtuais.", uds:[2] },
+      { c:"RA1.5", t:"Clasifica os linguaxes de programación segundo o seu paradigma.", uds:[2, 3] },
+      { c:"RA1.6", t:"Identifica as ferramentas utilizadas no desenvolvemento de software.", uds:[1, 2] },
+      { c:"RA1.7", t:"Recoñece as características e escenarios de uso das metodoloxías áxiles.", uds:[2] },
+  ] },
+  { group:"RA2", nombre:"Instala, personaliza e utiliza contornos de desenvolvemento (traballado de forma transversal en todas as UD).", items:[
+      { c:"RA2.1", t:"Instala e configura un contorno de desenvolvemento integrado (IDE) axeitado ao proxecto.", uds:[1, 2, 3, 4, 5, 6] },
+      { c:"RA2.2", t:"Personaliza o IDE (extensións, atallos, preferencias) para mellorar a produtividade.", uds:[1, 2, 3, 4, 5, 6] },
+      { c:"RA2.3", t:"Utiliza as funcionalidades do IDE para editar, compilar, executar e depurar código.", uds:[1, 2, 3, 4, 5, 6] },
+      { c:"RA2.4", t:"Utiliza o control de versións integrado no IDE.", uds:[1, 4, 5] },
+  ] },
+  { group:"RA3", nombre:"Deseña e realiza probas sobre a aplicación desenvolvida analizando a metodoloxía adecuada.", items:[
+      { c:"RA3.1", t:"Identifica os tipos de probas de software.", uds:[4] },
+      { c:"RA3.2", t:"Define casos de proba a partir dunha especificación dada.", uds:[4] },
+      { c:"RA3.3", t:"Utiliza as ferramentas de depuración e proba do contorno de desenvolvemento.", uds:[4] },
+      { c:"RA3.4", t:"Emprega puntos de ruptura e o seguimento paso a paso co depurador.", uds:[4] },
+      { c:"RA3.5", t:"Examina e modifica o comportamento da aplicación en tempo de execución.", uds:[4] },
+      { c:"RA3.6", t:"Desenvolve probas unitarias de clases e funcións.", uds:[4] },
+      { c:"RA3.7", t:"Automatiza a execución de probas.", uds:[4] },
+      { c:"RA3.8", t:"Documenta as incidencias detectadas durante as probas.", uds:[4] },
+      { c:"RA3.9", t:"Utiliza dobres de proba (mocks e stubs) para illar dependencias.", uds:[4] },
+  ] },
+  { group:"RA4", nombre:"Xestiona o control de versións e a calidade do código empregando ferramentas do contorno de desenvolvemento.", items:[
+      { c:"RA4.1", t:"Recoñece os patróns de refactorización máis usuais.", uds:[5] },
+      { c:"RA4.2", t:"Relaciona a refactorización coas probas que garanten que o comportamento non cambia.", uds:[5] },
+      { c:"RA4.3", t:"Revisa código empregando un analizador de código estático.", uds:[5] },
+      { c:"RA4.4", t:"Configura un analizador de código para un proxecto dado.", uds:[5] },
+      { c:"RA4.5", t:"Aplica patróns de refactorización coas ferramentas do IDE.", uds:[5] },
+      { c:"RA4.6", t:"Utiliza o control de versións integrado no contorno de desenvolvemento.", uds:[1] },
+      { c:"RA4.7", t:"Documenta as clases empregando as ferramentas do contorno de desenvolvemento.", uds:[5] },
+      { c:"RA4.8", t:"Utiliza repositorios remotos para o desenvolvemento colaborativo.", uds:[1] },
+      { c:"RA4.9", t:"Integra o código de forma continua ao longo do desenvolvemento.", uds:[5] },
+  ] },
+  { group:"RA5", nombre:"Elabora diagramas de clases empregando ferramentas específicas para interpretar e representar aplicacións orientadas a obxectos.", items:[
+      { c:"RA5.1", t:"Recoñece os conceptos básicos da programación orientada a obxectos.", uds:[3] },
+      { c:"RA5.2", t:"Utiliza ferramentas para a elaboración de diagramas de clases.", uds:[3] },
+      { c:"RA5.3", t:"Interpreta diagramas de clases dados.", uds:[3] },
+      { c:"RA5.4", t:"Traza diagramas de clases a partir de especificacións concretas.", uds:[3] },
+      { c:"RA5.5", t:"Xera código a partir dun diagrama de clases.", uds:[3] },
+      { c:"RA5.6", t:"Xera un diagrama de clases mediante enxeñaría inversa a partir de código existente.", uds:[3] },
+  ] },
+  { group:"RA6", nombre:"Elabora diagramas de comportamento empregando ferramentas específicas para interpretar e representar aplicacións orientadas a obxectos.", items:[
+      { c:"RA6.1", t:"Recoñece os tipos de diagramas de comportamento UML e o seu campo de aplicación.", uds:[6] },
+      { c:"RA6.2", t:"Interpreta e elabora diagramas de casos de uso.", uds:[6] },
+      { c:"RA6.3", t:"Interpreta diagramas de interacción (secuencia).", uds:[6] },
+      { c:"RA6.4", t:"Elabora diagramas de interacción sinxelos.", uds:[6] },
+      { c:"RA6.5", t:"Interpreta diagramas de actividades.", uds:[6] },
+      { c:"RA6.6", t:"Elabora diagramas de actividades sinxelos.", uds:[6] },
+      { c:"RA6.7", t:"Interpreta diagramas de estados.", uds:[6] },
+      { c:"RA6.8", t:"Elabora diagramas de estados sinxelos.", uds:[6] },
+  ] },
+];
+
+const contidosData = [
+  { group:"BC1", nombre:"Control de versións", items:[
+      { c:"C1.1", t:"Sistemas de control de versións distribuídos.", uds:[1] },
+      { c:"C1.2", t:"Repositorio local e rama principal.", uds:[1] },
+      { c:"C1.3", t:"Creación de ramas, fusión (merge) e resolución de conflitos.", uds:[1] },
+      { c:"C1.4", t:"Fluxos de traballo colaborativos (Gitflow, feature branches, pull requests).", uds:[1] },
+      { c:"C1.5", t:"Provedores de repositorios remotos (GitHub, GitLab, Bitbucket).", uds:[1] },
+      { c:"C1.6", t:"Erros comúns no uso de Git.", uds:[1] },
+  ] },
+  { group:"BC2", nombre:"Enxeñaría do software e metodoloxías", items:[
+      { c:"C2.1", t:"Concepto de programa informático; código fonte, obxecto e executable; virtualización.", uds:[2] },
+      { c:"C2.2", t:"Tipos de linguaxes de programación e paradigmas.", uds:[2] },
+      { c:"C2.3", t:"Fases do desenvolvemento dunha aplicación: análise, deseño, codificación, probas, documentación, explotación e mantemento.", uds:[2] },
+      { c:"C2.4", t:"Modelos de ciclo de vida: cascada, prototipado, iterativo.", uds:[2] },
+      { c:"C2.5", t:"Métrica v3.", uds:[2] },
+      { c:"C2.6", t:"Enxeñaría orientada a obxectos como enfoque de desenvolvemento.", uds:[2] },
+      { c:"C2.7", t:"Metodoloxías áxiles: características, técnicas e Scrum (planificación, roles, artefactos).", uds:[2] },
+      { c:"C2.8", t:"Erros comúns na selección e aplicación de metodoloxías.", uds:[2] },
+  ] },
+  { group:"BC3", nombre:"Programación orientada a obxectos e diagrama de clases", items:[
+      { c:"C3.1", t:"Paradigma de programación orientada a obxectos.", uds:[3] },
+      { c:"C3.2", t:"UML e a súa relación coa POO.", uds:[3] },
+      { c:"C3.3", t:"Clases e obxectos: instanciación.", uds:[3] },
+      { c:"C3.4", t:"Atributos, métodos e visibilidade.", uds:[3] },
+      { c:"C3.5", t:"Relacións: asociación, navegabilidade e multiplicidade.", uds:[3] },
+      { c:"C3.6", t:"Herdanza, composición, agregación, realización e dependencia.", uds:[3] },
+      { c:"C3.7", t:"Notación dos diagramas de clases e ferramentas de modelado.", uds:[3] },
+      { c:"C3.8", t:"Xeración automática de código a partir de diagramas e enxeñaría inversa.", uds:[3] },
+      { c:"C3.9", t:"Erros comúns ao modelar diagramas de clases.", uds:[3] },
+  ] },
+  { group:"BC4", nombre:"Probas de software", items:[
+      { c:"C4.1", t:"Concepto e obxectivo das probas de software.", uds:[4] },
+      { c:"C4.2", t:"Tipos de probas: funcionais, estruturais e de regresión.", uds:[4] },
+      { c:"C4.3", t:"Planificación de probas: casos de proba, cubrimento, valores límite e clases de equivalencia.", uds:[4] },
+      { c:"C4.4", t:"Probas unitarias con JUnit 5.", uds:[4] },
+      { c:"C4.5", t:"Dobres de proba: mocks e stubs.", uds:[4] },
+      { c:"C4.6", t:"Cobertura de código.", uds:[4] },
+      { c:"C4.7", t:"Integración continua (CI/CD) aplicada á automatización de probas.", uds:[4] },
+      { c:"C4.8", t:"Documentación de incidencias detectadas.", uds:[4] },
+      { c:"C4.9", t:"Erros comúns no deseño e execución de probas.", uds:[4] },
+  ] },
+  { group:"BC5", nombre:"Código limpo, refactorización e optimización", items:[
+      { c:"C5.1", t:"Código limpo (clean code) e lexibilidade.", uds:[5] },
+      { c:"C5.2", t:"Refactorización: concepto, limitacións e relación coas probas.", uds:[5] },
+      { c:"C5.3", t:"Principios SOLID.", uds:[5] },
+      { c:"C5.4", t:"Patróns de deseño creacionais, estruturais e de comportamento.", uds:[5] },
+      { c:"C5.5", t:"Analizadores de código estático (linters).", uds:[5] },
+      { c:"C5.6", t:"Documentación de código: comentarios e xeración automática (Javadoc e similares).", uds:[5] },
+      { c:"C5.7", t:"Erros comúns na aplicación de principios de deseño e refactorización.", uds:[5] },
+  ] },
+  { group:"BC6", nombre:"Diagramas de comportamento UML", items:[
+      { c:"C6.1", t:"Tipos de diagramas de comportamento UML e campo de aplicación.", uds:[6] },
+      { c:"C6.2", t:"Diagrama de casos de uso: actores, escenarios e relacións de comunicación.", uds:[6] },
+      { c:"C6.3", t:"Relacións entre casos de uso (inclusión, extensión, xeneralización).", uds:[6] },
+      { c:"C6.4", t:"Diagrama de secuencia: liña de vida, activación e envío de mensaxes.", uds:[6] },
+      { c:"C6.5", t:"Mensaxes e fragmentos combinados (alt, loop, opt).", uds:[6] },
+      { c:"C6.6", t:"Diagrama de actividade e diagrama de estados.", uds:[6] },
+      { c:"C6.7", t:"Erros comúns na elaboración de diagramas de comportamento.", uds:[6] },
+  ] },
+];
+
+const actividadesData = [
+  { ud:"UD1", nombre:"Control de versións con Git", sesiones:15, acts:[
+      { cod:"A1.1", t:"Instalación e configuración", d:"Instalación de Git e creación dunha conta nun provedor de repositorios remotos.", s:3, ca:["RA4.6", "RA4.8"], bc:["C1.1", "C1.2", "C1.5"] },
+      { cod:"A1.2", t:"Primeiros commits", d:"Creación dun repositorio, primeiros commits e push á rama principal.", s:3, ca:["RA1.6", "RA4.6"], bc:["C1.2"] },
+      { cod:"A1.3", t:"Ramas e merge", d:"Práctica guiada de creación de ramas, fusión (merge) e resolución de conflitos.", s:3, ca:["RA4.6"], bc:["C1.3"] },
+      { cod:"A1.4", t:"Fluxo colaborativo", d:"Simulación dun fluxo de traballo colaborativo en equipos de 2-3 alumnos (pull request e revisión).", s:3, ca:["RA4.8"], bc:["C1.4", "C1.5"] },
+      { cod:"A1.5", t:"Batería de exercicios", d:"Resolución da batería de exercicios do tema e corrección en grupo de erros comúns.", s:3, ca:["RA1.6", "RA4.6", "RA4.8"], bc:["C1.6"] },
+  ] },
+  { ud:"UD2", nombre:"Enxeñaría do software e metodoloxías de desenvolvemento", sesiones:15, acts:[
+      { cod:"A2.1", t:"Comparativa de modelos", d:"Análise comparativa de modelos de ciclo de vida (cascada vs. iterativo vs. prototipado) a partir de casos prácticos.", s:3, ca:["RA1.2"], bc:["C2.3", "C2.4"] },
+      { cod:"A2.2", t:"Planificación Métrica v3", d:"Elaboración dun pequeno documento de planificación Métrica v3 para un proxecto proposto.", s:3, ca:["RA1.2"], bc:["C2.5"] },
+      { cod:"A2.3", t:"Sprint Planning", d:"Simulación dunha Sprint Planning e elaboración dun backlog de produto/sprint (Scrum).", s:4, ca:["RA1.7"], bc:["C2.7"] },
+      { cod:"A2.4", t:"Debate metodolóxico", d:"Debate dirixido sobre vantaxes e inconvenientes de metodoloxías áxiles fronte a tradicionais.", s:2, ca:["RA1.7"], bc:["C2.7"] },
+      { cod:"A2.5", t:"Exercicios e postos en común", d:"Resolución de exercicios e posta en común de erros comúns.", s:3, ca:["RA1.1", "RA1.3", "RA1.4", "RA1.5"], bc:["C2.1", "C2.2", "C2.8"] },
+  ] },
+  { ud:"UD3", nombre:"Programación orientada a obxectos e diagrama de clases UML", sesiones:19, acts:[
+      { cod:"A3.1", t:"Identificar clases", d:"Identificación de clases, atributos e métodos a partir dun enunciado de dominio (por exemplo, sistema de xestión dunha biblioteca).", s:3, ca:["RA5.1"], bc:["C3.1", "C3.3", "C3.4"] },
+      { cod:"A3.2", t:"Diagrama de clases completo", d:"Elaboración manual e con ferramenta CASE/plugin do IDE dun diagrama de clases completo (asociacións, herdanza, agregación/composición).", s:5, ca:["RA5.2", "RA5.3", "RA5.4"], bc:["C3.2", "C3.5", "C3.6", "C3.7"] },
+      { cod:"A3.3", t:"Xeración de código", d:"Xeración de código Java a partir do diagrama elaborado (forward engineering).", s:4, ca:["RA5.5"], bc:["C3.8"] },
+      { cod:"A3.4", t:"Enxeñaría inversa", d:"Obtención dun diagrama de clases a partir de código fonte existente.", s:4, ca:["RA5.6"], bc:["C3.8"] },
+      { cod:"A3.5", t:"Corrección entre pares", d:"Corrección entre pares de diagramas seguindo a notación estándar UML.", s:3, ca:["RA1.5", "RA5.3"], bc:["C3.7", "C3.9"] },
+  ] },
+  { ud:"UD4", nombre:"Deseño e realización de probas de software", sesiones:19, acts:[
+      { cod:"A4.1", t:"Deseño de casos de proba", d:"Deseño de casos de proba (valores límite e clases de equivalencia) para unha función dada.", s:2, ca:["RA3.1", "RA3.2"], bc:["C4.2", "C4.3"] },
+      { cod:"A4.2", t:"Probas unitarias JUnit 5", d:"Implementación de probas unitarias con JUnit 5 sobre clases desenvolvidas en UD3.", s:3, ca:["RA3.6"], bc:["C4.4"] },
+      { cod:"A4.3", t:"Uso do depurador", d:"Uso do depurador do IDE: puntos de ruptura, inspección e modificación de variables en execución.", s:3, ca:["RA3.3", "RA3.4", "RA3.5"], bc:["C4.1"] },
+      { cod:"A4.4", t:"Mocks e stubs", d:"Creación de dobres de proba (mocks/stubs) para illar dependencias externas.", s:3, ca:["RA3.9"], bc:["C4.5"] },
+      { cod:"A4.5", t:"Cobertura de código", d:"Medición de cobertura de código e análise de resultados.", s:3, ca:["RA3.7"], bc:["C4.6"] },
+      { cod:"A4.6", t:"Integración continua", d:"Configuración dun fluxo de integración continua que execute as probas automaticamente.", s:3, ca:["RA3.7", "RA2.1", "RA2.3"], bc:["C4.7"] },
+      { cod:"A4.7", t:"Rexistro de incidencias", d:"Rexistro de incidencias detectadas nun sistema de seguimento (issue tracker).", s:2, ca:["RA3.8"], bc:["C4.8", "C4.9"] },
+  ] },
+  { ud:"UD5", nombre:"Código limpo, refactorización e optimización", sesiones:15, acts:[
+      { cod:"A5.1", t:"Identificar code smells", d:"Identificación de code smells en fragmentos de código proporcionados.", s:2, ca:["RA4.1"], bc:["C5.1", "C5.2"] },
+      { cod:"A5.2", t:"Refactorización guiada", d:"Refactorización guiada aplicando patróns (extracción de método, substitución de condicionais, etc.), verificando coas probas unitarias de UD4 que o comportamento non cambia.", s:4, ca:["RA4.2", "RA4.5"], bc:["C5.2"] },
+      { cod:"A5.3", t:"Análise SOLID", d:"Análise de casos que violan os principios SOLID e proposta de solución.", s:2, ca:["RA4.1"], bc:["C5.3"] },
+      { cod:"A5.4", t:"Patróns de deseño", d:"Implementación dun patrón creacional, un estrutural e un de comportamento sobre un caso práctico.", s:3, ca:["RA4.5"], bc:["C5.4"] },
+      { cod:"A5.5", t:"Analizador de código", d:"Execución dun analizador de código estático integrado no IDE e corrección dos avisos obtidos.", s:2, ca:["RA4.3", "RA4.4"], bc:["C5.5"] },
+      { cod:"A5.6", t:"Documentación de clases", d:"Documentación das clases desenvolvidas mediante comentarios estándar (Javadoc).", s:2, ca:["RA4.7"], bc:["C5.6"] },
+  ] },
+  { ud:"UD6", nombre:"Diagramas de comportamento UML", sesiones:11, acts:[
+      { cod:"A6.1", t:"Diagrama de casos de uso", d:"Elaboración dun diagrama de casos de uso a partir dos requisitos dun sistema (por exemplo, o proxecto traballado en UD3).", s:2, ca:["RA6.2"], bc:["C6.2", "C6.3"] },
+      { cod:"A6.2", t:"Diagrama de secuencia", d:"Elaboración dun diagrama de secuencia sinxelo para un dos casos de uso, incluíndo mensaxes e fragmentos combinados.", s:3, ca:["RA6.3", "RA6.4"], bc:["C6.4", "C6.5"] },
+      { cod:"A6.3", t:"Diagrama de actividade", d:"Elaboración dun diagrama de actividade para modelar un proceso de negocio.", s:2, ca:["RA6.5", "RA6.6"], bc:["C6.6"] },
+      { cod:"A6.4", t:"Diagrama de estados", d:"Elaboración dun diagrama de estados para un obxecto con ciclo de vida relevante (por exemplo, un pedido).", s:2, ca:["RA6.7", "RA6.8"], bc:["C6.6"] },
+      { cod:"A6.5", t:"Posta en común", d:"Posta en común e corrección de erros comúns de notación.", s:2, ca:["RA6.1"], bc:["C6.1", "C6.7"] },
+  ] },
+];
+
+const disenoData = [
+  { ud:"UD1", nombre:"Control de versións con Git", acts:[
+      { cod:"A1.1", t:"Instalación e configuración", descripcion:"Instalación de Git e creación dunha conta nun provedor de repositorios remotos.", objetivos:["Instalar e configurar Git nun posto de traballo.", "Crear e configurar unha conta nun provedor de repositorios remotos."], resultados:["Repositorio persoal creado no provedor remoto, con Git configurado localmente (usuario e correo)."], recursos:["Conta no provedor de repositorios remotos (GitHub/GitLab/Bitbucket)."] },
+      { cod:"A1.2", t:"Primeiros commits", descripcion:"Creación dun repositorio, primeiros commits e push á rama principal.", objetivos:["Realizar o ciclo básico de traballo con Git: engadir, confirmar e subir cambios."], resultados:["Repositorio Git cun historial de polo menos 3 commits significativos enviados á rama principal."], recursos:[] },
+      { cod:"A1.3", t:"Ramas e merge", descripcion:"Práctica guiada de creación de ramas, fusión (merge) e resolución de conflitos.", objetivos:["Crear e xestionar ramas de traballo.", "Resolver conflitos de fusión de forma controlada."], resultados:["Repositorio Git con polo menos dúas ramas fusionadas e un conflito resolto de forma documentada."], recursos:["Guión de conflito provocado para a práctica de resolución."] },
+      { cod:"A1.4", t:"Fluxo colaborativo", descripcion:"Simulación dun fluxo de traballo colaborativo en equipos de 2-3 alumnos (pull request e revisión).", objetivos:["Aplicar un fluxo de traballo colaborativo baseado en pull requests.", "Realizar unha revisión de código entre compañeiros/as."], resultados:["Repositorio Git compartido co historial de pull requests e comentarios de revisión."], recursos:["Equipo de 2-3 alumnos/as co mesmo repositorio compartido."] },
+      { cod:"A1.5", t:"Batería de exercicios", descripcion:"Resolución da batería de exercicios do tema e corrección en grupo de erros comúns.", objetivos:["Consolidar o manexo do control de versións resolvendo casos variados.", "Identificar e corrixir erros comúns no uso de Git."], resultados:["Repositorio Git coas solucións dos exercicios propostos."], recursos:["Batería de exercicios e solucións do Tema 1."] },
+  ] },
+  { ud:"UD2", nombre:"Enxeñaría do software e metodoloxías de desenvolvemento", acts:[
+      { cod:"A2.1", t:"Comparativa de modelos", descripcion:"Análise comparativa de modelos de ciclo de vida (cascada vs. iterativo vs. prototipado) a partir de casos prácticos.", objetivos:["Recoñecer as fases de desenvolvemento dunha aplicación informática segundo distintos modelos de ciclo de vida."], resultados:["Informe comparativo dos tres modelos aplicados a un mesmo caso práctico."], recursos:["Enunciados de casos prácticos para cada modelo de ciclo de vida."] },
+      { cod:"A2.2", t:"Planificación Métrica v3", descripcion:"Elaboración dun pequeno documento de planificación Métrica v3 para un proxecto proposto.", objetivos:["Recoñecer as fases de desenvolvemento dunha aplicación informática segundo a metodoloxía Métrica v3."], resultados:["Documento ADR: xustificación das decisións de planificación adoptadas segundo Métrica v3."], recursos:["Plantilla ADR.", "Guía resumo de Métrica v3."] },
+      { cod:"A2.3", t:"Sprint Planning", descripcion:"Simulación dunha Sprint Planning e elaboración dun backlog de produto/sprint (Scrum).", objetivos:["Recoñecer as características e escenarios de uso das metodoloxías áxiles.", "Elaborar un backlog de produto e de sprint segundo Scrum."], resultados:["Backlog de produto e de sprint documentados (formato taboleiro/lista priorizada)."], recursos:["Plantilla de backlog / taboleiro Scrum (físico ou dixital)."] },
+      { cod:"A2.4", t:"Debate metodolóxico", descripcion:"Debate dirixido sobre vantaxes e inconvenientes de metodoloxías áxiles fronte a tradicionais.", objetivos:["Comparar criticamente metodoloxías áxiles e tradicionais segundo o seu escenario de uso."], resultados:["Informe comparativo (vantaxes/inconvenientes) elaborado en grupo."], recursos:[] },
+      { cod:"A2.5", t:"Exercicios e postos en común", descripcion:"Resolución de exercicios e posta en común de erros comúns.", objetivos:["Relacionar os programas cos compoñentes do sistema informático.", "Diferenciar código fonte, obxecto e executable, e clasificar linguaxes de programación."], resultados:["Colección de exercicios resoltos, entregada en repositorio de traballo persoal."], recursos:["Batería de exercicios e solucións do Tema 2."] },
+  ] },
+  { ud:"UD3", nombre:"Programación orientada a obxectos e diagrama de clases UML", acts:[
+      { cod:"A3.1", t:"Identificar clases", descripcion:"Identificación de clases, atributos e métodos a partir dun enunciado de dominio (por exemplo, sistema de xestión dunha biblioteca).", objetivos:["Recoñecer os conceptos básicos da programación orientada a obxectos aplicados a un dominio concreto."], resultados:["Listaxe de clases, atributos e métodos identificados, documentada."], recursos:["Enunciado do dominio (sistema de xestión dunha biblioteca ou similar)."] },
+      { cod:"A3.2", t:"Diagrama de clases completo", descripcion:"Elaboración manual e con ferramenta CASE/plugin do IDE dun diagrama de clases completo (asociacións, herdanza, agregación/composición).", objetivos:["Utilizar ferramentas para a elaboración de diagramas de clases.", "Trazar diagramas de clases a partir de especificacións concretas."], resultados:["Diagrama de clases completo (asociacións, herdanza, agregación/composición), en formato ferramenta CASE."], recursos:["Ferramenta de modelado UML (plugin do IDE ou ferramenta CASE)."] },
+      { cod:"A3.3", t:"Xeración de código", descripcion:"Xeración de código Java a partir do diagrama elaborado (forward engineering).", objetivos:["Xerar código a partir dun diagrama de clases."], resultados:["Repositorio Git co código Java xerado a partir do diagrama e revisado."], recursos:[] },
+      { cod:"A3.4", t:"Enxeñaría inversa", descripcion:"Obtención dun diagrama de clases a partir de código fonte existente.", objetivos:["Xerar un diagrama de clases mediante enxeñaría inversa a partir de código existente."], resultados:["Diagrama de clases obtido por enxeñaría inversa a partir dun proxecto existente."], recursos:["Proxecto de código fonte existente para a enxeñaría inversa."] },
+      { cod:"A3.5", t:"Corrección entre pares", descripcion:"Corrección entre pares de diagramas seguindo a notación estándar UML.", objetivos:["Interpretar diagramas de clases dados e verificar o cumprimento da notación estándar UML."], resultados:["Informe de revisión entre pares cos erros de notación detectados e corrixidos."], recursos:["Rúbrica de corrección de notación UML."] },
+  ] },
+  { ud:"UD4", nombre:"Deseño e realización de probas de software", acts:[
+      { cod:"A4.1", t:"Deseño de casos de proba", descripcion:"Deseño de casos de proba (valores límite e clases de equivalencia) para unha función dada.", objetivos:["Identificar os tipos de probas de software e definir casos de proba a partir dunha especificación."], resultados:["Documento de casos de proba (valores límite e clases de equivalencia) para a función proposta."], recursos:[] },
+      { cod:"A4.2", t:"Probas unitarias JUnit 5", descripcion:"Implementación de probas unitarias con JUnit 5 sobre clases desenvolvidas en UD3.", objetivos:["Desenvolver probas unitarias de clases e funcións."], resultados:["Repositorio Git coa batería de probas unitarias JUnit 5 sobre o proxecto de UD3."], recursos:["Biblioteca JUnit 5 configurada no proxecto."] },
+      { cod:"A4.3", t:"Uso do depurador", descripcion:"Uso do depurador do IDE: puntos de ruptura, inspección e modificación de variables en execución.", objetivos:["Empregar puntos de ruptura e seguimento paso a paso co depurador.", "Examinar e modificar o comportamento da aplicación en tempo de execución."], resultados:["Informe curto da sesión de depuración: incidencia localizada e variables inspeccionadas."], recursos:[] },
+      { cod:"A4.4", t:"Mocks e stubs", descripcion:"Creación de dobres de proba (mocks/stubs) para illar dependencias externas.", objetivos:["Utilizar dobres de proba para illar dependencias externas nas probas unitarias."], resultados:["Repositorio Git coas probas actualizadas empregando mocks/stubs (Mockito)."], recursos:["Biblioteca de mocks (Mockito)."] },
+      { cod:"A4.5", t:"Cobertura de código", descripcion:"Medición de cobertura de código e análise de resultados.", objetivos:["Automatizar a execución de probas e analizar a cobertura de código obtida."], resultados:["Informe de cobertura de código xerado coa ferramenta do IDE."], recursos:["Ferramenta de cobertura de código integrada no IDE."] },
+      { cod:"A4.6", t:"Integración continua", descripcion:"Configuración dun fluxo de integración continua que execute as probas automaticamente.", objetivos:["Automatizar a execución de probas mediante un fluxo de integración continua."], resultados:["Repositorio Git cun fluxo de CI/CD configurado e en execución (badge de estado visible)."], recursos:["Servizo de CI/CD (p.ex. GitHub Actions/GitLab CI)."] },
+      { cod:"A4.7", t:"Rexistro de incidencias", descripcion:"Rexistro de incidencias detectadas nun sistema de seguimento (issue tracker).", objetivos:["Documentar as incidencias detectadas durante as probas."], resultados:["Conxunto de incidencias rexistradas no issue tracker, con pasos de reprodución."], recursos:["Issue tracker do provedor de repositorios (Issues de GitHub/GitLab)."] },
+  ] },
+  { ud:"UD5", nombre:"Código limpo, refactorización e optimización", acts:[
+      { cod:"A5.1", t:"Identificar code smells", descripcion:"Identificación de code smells en fragmentos de código proporcionados.", objetivos:["Recoñecer os patróns de refactorización máis usuais a partir da detección de code smells."], resultados:["Informe cos code smells identificados en cada fragmento proposto."], recursos:["Fragmentos de código con code smells intencionados."] },
+      { cod:"A5.2", t:"Refactorización guiada", descripcion:"Refactorización guiada aplicando patróns (extracción de método, substitución de condicionais, etc.), verificando coas probas unitarias de UD4 que o comportamento non cambia.", objetivos:["Relacionar a refactorización coas probas que garanten que o comportamento non cambia.", "Aplicar patróns de refactorización coas ferramentas do IDE."], resultados:["Repositorio Git con evidencia «antes/despois» da refactorización e as probas de UD4 en verde."], recursos:[] },
+      { cod:"A5.3", t:"Análise SOLID", descripcion:"Análise de casos que violan os principios SOLID e proposta de solución.", objetivos:["Recoñecer os patróns de refactorización máis usuais aplicados a violacións dos principios SOLID."], resultados:["Documento ADR: decisión de deseño adoptada para corrixir a violación SOLID detectada."], recursos:["Plantilla ADR.", "Casos de código que violan principios SOLID."] },
+      { cod:"A5.4", t:"Patróns de deseño", descripcion:"Implementación dun patrón creacional, un estrutural e un de comportamento sobre un caso práctico.", objetivos:["Aplicar patróns de deseño (creacional, estrutural e de comportamento) coas ferramentas do IDE."], resultados:["Repositorio Git coa implementación dos tres patróns sobre o caso práctico.", "Documento ADR xustificando a elección de cada patrón."], recursos:[] },
+      { cod:"A5.5", t:"Analizador de código", descripcion:"Execución dun analizador de código estático integrado no IDE e corrección dos avisos obtidos.", objetivos:["Configurar un analizador de código e revisar código empregándoo."], resultados:["Informe do analizador de código estático coas correccións aplicadas."], recursos:["Analizador de código estático integrado no IDE."] },
+      { cod:"A5.6", t:"Documentación de clases", descripcion:"Documentación das clases desenvolvidas mediante comentarios estándar (Javadoc).", objetivos:["Documentar as clases empregando as ferramentas do contorno de desenvolvemento."], resultados:["Documentación Javadoc xerada para as clases do proxecto."], recursos:[] },
+  ] },
+  { ud:"UD6", nombre:"Diagramas de comportamento UML", acts:[
+      { cod:"A6.1", t:"Diagrama de casos de uso", descripcion:"Elaboración dun diagrama de casos de uso a partir dos requisitos dun sistema (por exemplo, o proxecto traballado en UD3).", objetivos:["Interpretar e elaborar diagramas de casos de uso a partir dun conxunto de requisitos."], resultados:["Diagrama de casos de uso do sistema, en formato ferramenta de modelado."], recursos:["Ferramenta de modelado UML (plugin do IDE ou ferramenta CASE)."] },
+      { cod:"A6.2", t:"Diagrama de secuencia", descripcion:"Elaboración dun diagrama de secuencia sinxelo para un dos casos de uso, incluíndo mensaxes e fragmentos combinados.", objetivos:["Interpretar diagramas de interacción.", "Elaborar diagramas de interacción sinxelos con fragmentos combinados."], resultados:["Diagrama de secuencia dun caso de uso, con mensaxes e fragmentos combinados (alt/loop/opt)."], recursos:[] },
+      { cod:"A6.3", t:"Diagrama de actividade", descripcion:"Elaboración dun diagrama de actividade para modelar un proceso de negocio.", objetivos:["Interpretar e elaborar diagramas de actividades sinxelos."], resultados:["Diagrama de actividade do proceso de negocio modelado."], recursos:[] },
+      { cod:"A6.4", t:"Diagrama de estados", descripcion:"Elaboración dun diagrama de estados para un obxecto con ciclo de vida relevante (por exemplo, un pedido).", objetivos:["Interpretar e elaborar diagramas de estados sinxelos."], resultados:["Diagrama de estados do obxecto co seu ciclo de vida completo."], recursos:[] },
+      { cod:"A6.5", t:"Posta en común", descripcion:"Posta en común e corrección de erros comúns de notación.", objetivos:["Recoñecer os tipos de diagramas de comportamento UML e corrixir erros comúns de notación."], resultados:["Conxunto final de diagramas revisados e corrixidos sobre o mesmo caso de estudo."], recursos:["Rúbrica de corrección de notación UML."] },
+  ] },
+];
+
+const evalUdData = [
+  { t:"UD1. Control de versións con Git", d:"Exame liberatorio da UD1 (70 %) + exercicios/proxectos prácticos da UD (30 %). Superado o exame liberatorio, a UD queda superada e non entra na proba final.", p:"70 % + 30 %" },
+  { t:"UD2. Enxeñaría do software e metodoloxías de desenvolvemento", d:"Exame liberatorio da UD2 (70 %) + exercicios/proxectos prácticos da UD (30 %). Superado o exame liberatorio, a UD queda superada e non entra na proba final.", p:"70 % + 30 %" },
+  { t:"UD3. Programación orientada a obxectos e diagrama de clases UML", d:"Exame liberatorio da UD3 (70 %) + exercicios/proxectos prácticos da UD (30 %). Superado o exame liberatorio, a UD queda superada e non entra na proba final.", p:"70 % + 30 %" },
+  { t:"UD4. Deseño e realización de probas de software", d:"Exame liberatorio da UD4 (70 %) + exercicios/proxectos prácticos da UD (30 %). Superado o exame liberatorio, a UD queda superada e non entra na proba final.", p:"70 % + 30 %" },
+  { t:"UD5. Código limpo, refactorización e optimización", d:"Exame liberatorio da UD5 (70 %) + exercicios/proxectos prácticos da UD (30 %). Superado o exame liberatorio, a UD queda superada e non entra na proba final.", p:"70 % + 30 %" },
+  { t:"UD6. Diagramas de comportamento UML", d:"Exame liberatorio da UD6 (70 %) + exercicios/proxectos prácticos da UD (30 %). Superado o exame liberatorio, a UD queda superada e non entra na proba final.", p:"70 % + 30 %" },
+];
+
+function escapeAttr(s){
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+}
+function copyableCell(text, isNum){
+  return `<div class="cell${isNum ? ' num' : ''}"><span class="val">${text}</span><button class="copy-btn" data-copy="${escapeAttr(text)}">Copiar</button></div>`;
+}
+
+(function renderSeq(){
+  const tbody = document.querySelector('#seq-table tbody');
+  seqData.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${copyableCell(row.t)}</td>
+      <td><div class="cell desc"><span class="val">${row.d}</span><button class="copy-btn" data-copy="${escapeAttr(row.d)}">Copiar</button></div></td>
+      <td>${copyableCell(row.s, true)}</td>
+      <td>${copyableCell(row.p + ' %', true)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+})();
+
+(function renderEvalUd(){
+  const tbody = document.querySelector('#eval-ud-table tbody');
+  evalUdData.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${copyableCell(row.t)}</td>
+      <td><div class="cell desc"><span class="val">${row.d}</span><button class="copy-btn" data-copy="${escapeAttr(row.d)}">Copiar</button></div></td>
+      <td>${copyableCell(row.p, true)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+})();
+
+function renderMatrix(tableId, groups){
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  groups.forEach(g => {
+    const trG = document.createElement('tr');
+    trG.className = 'group-row';
+    trG.innerHTML = `<td colspan="${N_UD + 1}">${g.group} — ${g.nombre}</td>`;
+    tbody.appendChild(trG);
+
+    g.items.forEach(item => {
+      const tr = document.createElement('tr');
+      tr.className = 'item-row';
+      let cells = `<td class="item-label"><span class="item-code">${item.c}</span>${item.minNo ? '<span class="min-no">' + item.t + '</span>' : item.t}</td>`;
+      for(let ud = 1; ud <= N_UD; ud++){
+        const on = item.uds.includes(ud);
+        cells += `<td><span class="dot${on ? ' on' : ''}"></span></td>`;
+      }
+      tr.innerHTML = cells;
+      tbody.appendChild(tr);
+    });
+  });
+}
+renderMatrix('criterios-table', criteriosData);
+renderMatrix('contidos-table', contidosData);
+
+(function injectUdHeaders(){
+  document.querySelectorAll('.tbl-matrix thead tr').forEach(tr => {
+    if(tr.innerHTML.includes('__UD_HEADERS__')){
+      let ths = '';
+      for(let ud = 1; ud <= N_UD; ud++){ ths += `<th>UD${ud}</th>`; }
+      tr.innerHTML = tr.innerHTML.replace('__UD_HEADERS__', ths);
+    }
+  });
+})();
+
+(function renderActividades(){
+  const tbodyMain = document.querySelector('#act-main-table tbody');
+  actividadesData.forEach(ud => {
+    const trUd = document.createElement('tr');
+    trUd.className = 'ud-row';
+    trUd.innerHTML = `<td colspan="3">${ud.ud} — ${ud.nombre} (${ud.sesiones} sesións)</td>`;
+    tbodyMain.appendChild(trUd);
+
+    ud.acts.forEach(a => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${copyableCell(a.cod + '. ' + a.t)}</td>
+        <td><div class="cell desc"><span class="val">${a.d}</span><button class="copy-btn" data-copy="${escapeAttr(a.d)}">Copiar</button></div></td>
+        <td>${copyableCell(a.s, true)}</td>
+      `;
+      tbodyMain.appendChild(tr);
+    });
+  });
+
+  const udBlocksEl = document.getElementById('act-ud-blocks');
+  actividadesData.forEach(ud => {
+    const casSet = [...new Set(ud.acts.flatMap(a => a.ca))].sort();
+    const bcsSet = [...new Set(ud.acts.flatMap(a => a.bc))].sort();
+
+    const block = document.createElement('div');
+    block.className = 'ud-block';
+
+    let caRows = '';
+    casSet.forEach(c => {
+      let cells = `<td class="code-label">${c}</td>`;
+      ud.acts.forEach(a => { cells += `<td><span class="dot${a.ca.includes(c) ? ' on' : ''}"></span></td>`; });
+      caRows += `<tr>${cells}</tr>`;
+    });
+
+    let bcRows = '';
+    bcsSet.forEach(c => {
+      let cells = `<td class="code-label">${c}</td>`;
+      ud.acts.forEach(a => { cells += `<td><span class="dot${a.bc.includes(c) ? ' on' : ''}"></span></td>`; });
+      bcRows += `<tr>${cells}</tr>`;
+    });
+
+    const actHeaders = ud.acts.map(a => `<th title="${escapeAttr(a.t)}">${a.cod}</th>`).join('');
+
+    block.innerHTML = `
+      <div class="ud-title">${ud.ud} — ${ud.nombre}</div>
+      <div class="ud-meta">${ud.sesiones} sesións · ${ud.acts.length} actividades</div>
+
+      <div class="matrix-title">Criterio de avaliación (CA) × Actividade</div>
+      <div class="table-scroll">
+        <table class="tbl-mini-matrix">
+          <thead><tr><th class="code-head">CA</th>${actHeaders}</tr></thead>
+          <tbody>${caRows}</tbody>
+        </table>
+      </div>
+
+      <div class="matrix-title">Contido (BC) × Actividade</div>
+      <div class="table-scroll">
+        <table class="tbl-mini-matrix">
+          <thead><tr><th class="code-head">BC</th>${actHeaders}</tr></thead>
+          <tbody>${bcRows}</tbody>
+        </table>
+      </div>
+    `;
+    udBlocksEl.appendChild(block);
+  });
+})();
+
+(function renderDiseno(){
+  const wrap = document.getElementById('diseno-blocks');
+  function listOrText(arr){
+    if(arr.length === 0) return `<div class="design-field-body empty">— (cuberto polo contorno base do curso)</div>`;
+    if(arr.length === 1) return `<div class="design-field-body">${arr[0]}</div>`;
+    return `<div class="design-field-body"><ul>${arr.map(x => `<li>${x}</li>`).join('')}</ul></div>`;
+  }
+  function copyBtn(text){
+    return `<button class="copy-btn" data-copy="${escapeAttr(text)}">Copiar</button>`;
+  }
+  disenoData.forEach(ud => {
+    const title = document.createElement('div');
+    title.className = 'design-ud-title';
+    title.textContent = `${ud.ud} — ${ud.nombre}`;
+    wrap.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.className = 'design-grid';
+
+    ud.acts.forEach(a => {
+      const objTxt = a.objetivos.join('\n');
+      const resTxt = a.resultados.join('\n');
+      const recTxt = a.recursos.length ? a.recursos.join('\n') : '(cuberto polo contorno base do curso)';
+
+      const card = document.createElement('div');
+      card.className = 'design-card';
+      card.innerHTML = `
+        <div class="design-card-head">
+          <h3>${a.cod}. ${a.t}</h3>
+        </div>
+        <div class="design-fields">
+          <div class="design-field" style="grid-column:1 / -1;">
+            <div class="design-field-label">Descrición ${copyBtn(a.descripcion)}</div>
+            <div class="design-field-body">${a.descripcion}</div>
+          </div>
+          <div class="design-field">
+            <div class="design-field-label">Obxectivos específicos ${copyBtn(objTxt)}</div>
+            ${listOrText(a.objetivos)}
+          </div>
+          <div class="design-field">
+            <div class="design-field-label">Resultados / produtos ${copyBtn(resTxt)}</div>
+            ${listOrText(a.resultados)}
+          </div>
+          <div class="design-field" style="grid-column:1 / -1;">
+            <div class="design-field-label">Recursos específicos ${copyBtn(recTxt)}</div>
+            ${listOrText(a.recursos)}
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    wrap.appendChild(grid);
+  });
+})();
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.copy-btn');
+  if(!btn) return;
+  const blockId = btn.getAttribute('data-copy-block');
+  const text = blockId
+    ? Array.from(document.querySelectorAll(`#${blockId} p`)).map(p => p.innerText).join('\n\n')
+    : btn.getAttribute('data-copy');
+  try{
+    navigator.clipboard.writeText(text);
+    const original = btn.textContent;
+    btn.textContent = 'OK';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1000);
+  }catch(err){
+    btn.textContent = 'Erro';
+  }
+});
+</script>

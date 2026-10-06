@@ -57,7 +57,8 @@ UML define más de una docena de tipos de diagramas, divididos en dos grandes gr
 | Diagrama de actividad | Representa flujos de trabajo (similar a un diagrama de flujo) |
 | Diagrama de estados | Modela los estados por los que pasa un objeto |
 
-:::info En este tema nos centraremos en el **diagrama de clases**, que es el más utilizado y el que tiene correspondencia directa con el código Java.
+:::info
+En este tema nos centraremos en el **diagrama de clases**, que es el más utilizado y el que tiene correspondencia directa con el código Java.
 :::
 
 ---
@@ -90,7 +91,8 @@ flowchart TD
     C --> D[4. Pruebas y mantenimiento]
 ```
 
-:::tip El diagrama de clases UML actúa como **contrato** entre el analista y el desarrollador. El analista define qué clases existen y cómo se relacionan; el desarrollador las implementa en el lenguaje elegido.
+:::tip
+El diagrama de clases UML actúa como **contrato** entre el analista y el desarrollador. El analista define qué clases existen y cómo se relacionan; el desarrollador las implementa en el lenguaje elegido.
 :::
 
 ---

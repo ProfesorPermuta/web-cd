@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
@@ -30,6 +31,7 @@ const TEMAS: Tema[] = [
       { label: 'Modelo Cascada',                  href: '/tema-2/b-modelo-cascada' },
       { label: 'Modelo Iterativo',                href: '/tema-2/d-modelo-iterativo' },
       { label: 'Métrica V3',                      href: '/tema-2/e-metrica-v3' },
+      { label: 'Tarjetas CRC y pruebas',          href: '/tema-2/f-tarjetas-crc-y-casos-de-prueba' },
       { label: 'Metodología ágil',                href: '/tema-2/g-metodologia-agil' },
       { label: 'Scrum: planificación',            href: '/tema-2/g-scrum-planificacion' },
       { label: 'Errores comunes',                 href: '/tema-2/h-errores-comunes' },
@@ -118,10 +120,14 @@ function TemaCard({ tema }: { tema: Tema }) {
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero', styles.heroBanner)}>
       <div className="container">
+        <img className={styles.heroLogo} src={useBaseUrl('/img/logo.svg')} alt="" />
         <Heading as="h1" className="hero__title">{siteConfig.title}</Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className={clsx('hero__subtitle', styles.heroSubtitle)}>{siteConfig.tagline}</p>
+        <ul className={styles.heroTags}>
+          {TEMAS.map(t => <li key={t.n}>T{t.n} · {t.title}</li>)}
+        </ul>
       </div>
     </header>
   );
@@ -131,7 +137,7 @@ function HomepageHeader() {
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout title={siteConfig.title} description="Apuntes del curso">
+    <Layout title={siteConfig.title} description="Apuntes, ejercicios y presentaciones de Entornos de Desarrollo">
       <HomepageHeader />
       <main>
         <section className={styles.temasSection}>
