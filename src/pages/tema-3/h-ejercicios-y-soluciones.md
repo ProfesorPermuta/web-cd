@@ -109,3 +109,44 @@ Diseña el diagrama de clases de un sistema básico de carrito de compra:
 
 Restricciones:
 - El carrito debe relacionarse con la interfaz `Discount`, no con una implementación concreta de descuento.
+
+---
+
+### Ejercicio 5 — Hotel Retro Games
+
+En una ciudad japonesa se ha inaugurado un **Hotel Retro Games**, un hotel temático basado en los videojuegos clásicos. Diseña el diagrama de clases del sistema que lo gestiona.
+
+**Hotel**
+
+Cada hotel tiene un nombre, una dirección y una categoría (3, 4 o 5 estrellas). Además, cuenta con habitaciones y con un catálogo de consolas retro disponibles para alquilar.
+
+**Habitaciones**
+
+Cada habitación tiene un número o identificador, un precio por noche, un estado (libre u ocupada) y un tipo: Básica, Arcade, Premium o Retro Gamer.
+
+**Consolas retro**
+
+El hotel tiene un inventario de consolas. Cada consola se caracteriza por un código, un nombre, una marca (Nintendo, Sega, Sony, etc.) y su año de lanzamiento.
+
+Puede haber varias unidades de la misma consola. Cada unidad concreta se distingue por un identificador único y la fecha en la que fue adquirida.
+
+**Consolas especiales**
+
+Existe un tipo especial de consola: la **consola de edición limitada**. Puede alquilarse en cualquier tipo de habitación, pero las habitaciones Retro Gamer solo pueden tener consolas de edición limitada.
+
+**Gestión del hotel**
+
+El sistema debe permitir las siguientes operaciones sobre el hotel:
+- Mover una consola de una habitación a otra. Devuelve si la operación se ha podido realizar (`true` o `false`).
+- Comprar una nueva consola. Devuelve la consola comprada.
+- Eliminar una consola del inventario.
+
+**Clientes**
+
+El hotel también gestiona clientes. Cada cliente tiene un nombre, un DNI y una fecha de nacimiento. El hotel debe poder:
+- Registrar nuevos clientes.
+- Consultar en qué habitaciones se ha alojado cada cliente en el pasado.
+
+Restricciones:
+- Indica en el diagrama los atributos, los métodos (con sus parámetros y tipo de retorno) y las multiplicidades de cada relación.
+- Elige y justifica el tipo de relación (asociación, agregación, composición, herencia) entre cada par de clases.
