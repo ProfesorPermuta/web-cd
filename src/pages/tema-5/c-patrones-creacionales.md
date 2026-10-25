@@ -62,7 +62,9 @@ class Application {
 }
 ```
 
-:::warning Úsalo con precaución
+:::warning
+**Úsalo con precaución**
+
 El Singleton es el patrón creacional más fácil de usar mal. Evítalo cuando almacene estado mutable que varía por petición (en servidores web, por ejemplo) o cuando dificulte las pruebas unitarias.
 :::
 

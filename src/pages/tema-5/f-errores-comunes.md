@@ -266,7 +266,9 @@ public class Greeter {
 }
 ```
 
-:::tip Regla práctica
+:::tip
+**Regla práctica**
+
 Aplica un patrón solo cuando ya tienes el problema que resuelve, no como prevención ante cambios hipotéticos. El refactoring y los tests son tu red de seguridad para introducir patrones más adelante.
 :::
 

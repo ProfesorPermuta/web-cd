@@ -124,7 +124,9 @@ git commit -m "Elimina fichero de configuración sensible del repositorio"
 git push
 ```
 
-:::warning Si subiste credenciales reales
+:::warning
+**Si subiste credenciales reales**
+
 Si subiste una contraseña o clave de API real a un repositorio, **cámbiala inmediatamente**, aunque luego la elimines del repositorio. Los bots escanean GitHub en tiempo real buscando credenciales expuestas.
 :::
 
@@ -170,7 +172,9 @@ git merge feature/sistema-notificaciones
 git branch -d feature/sistema-notificaciones  # -d (minúscula) solo borra si está fusionada
 ```
 
-:::tip Diferencia entre `-d` y `-D`
+:::tip
+**Diferencia entre `-d` y `-D`**
+
 `git branch -d` (minúscula) protege tu trabajo: falla si la rama no está fusionada. `git branch -D` (mayúscula) fuerza el borrado sin comprobación. Usa `-D` solo cuando sepas exactamente lo que haces.
 :::
 

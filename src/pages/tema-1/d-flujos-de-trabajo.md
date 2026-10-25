@@ -57,7 +57,9 @@ git push -u origin feature/nueva-pantalla
 # El equipo revisa el código y aprueba el merge a main
 ```
 
-:::info Pull Request / Merge Request
+:::info
+**Pull Request / Merge Request**
+
 Las plataformas como GitHub, GitLab o Bitbucket permiten abrir una **Pull Request (PR)** antes del merge. Esto activa una revisión de código por parte del equipo antes de integrar los cambios. Es una práctica recomendada en cualquier equipo profesional.
 :::
 
@@ -188,7 +190,9 @@ git merge --no-ff pre-production
 | GitHub Flow | Media | Equipos con despliegue continuo (CD) |
 | GitLab Flow | Media | Equipos con múltiples entornos de despliegue |
 
-:::tip ¿Cuál elegir?
+:::tip
+**¿Cuál elegir?**
+
 Para la mayoría de proyectos del curso, **Feature Branch Workflow** con Pull Requests es el equilibrio perfecto entre orden y sencillez. Si el proyecto tiene versiones numeradas, considera **Git Flow**.
 :::
 

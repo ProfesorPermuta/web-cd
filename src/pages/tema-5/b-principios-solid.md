@@ -55,7 +55,9 @@ public class InvoiceEmailSender {
 }
 ```
 
-:::tip Señal de violación
+:::tip
+**Señal de violación**
+
 Si necesitas un comentario del tipo `// lógica de facturación` y más abajo `// lógica de correo` dentro de la misma clase, es momento de dividirla.
 :::
 
@@ -259,7 +261,9 @@ public class OrderService {
 }
 ```
 
-:::info Ventaja en pruebas
+:::info
+**Ventaja en pruebas**
+
 Al depender de la interfaz `OrderRepository`, en los tests se puede inyectar un doble (*mock*) sin necesitar una base de datos real. Esto conecta DIP directamente con el Tema 4 de pruebas con Mockito.
 :::
 

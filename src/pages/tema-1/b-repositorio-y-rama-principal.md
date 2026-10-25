@@ -188,7 +188,9 @@ git restore --staged MiClase.java
 git diff MiClase.java
 ```
 
-:::warning No uses `git reset --hard` a la ligera
+:::warning
+**No uses `git reset --hard` a la ligera**
+
 `git reset --hard` descarta cambios de forma permanente. Úsalo solo cuando estés seguro de que no necesitas esos cambios.
 :::
 

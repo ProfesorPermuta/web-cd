@@ -251,11 +251,15 @@ export function ZonasCanvas({ step }) {
 
 ## Tips
 
-:::tip El paso siempre es 1-based
+:::tip
+**El paso siempre es 1-based**
+
 `renderCanvas` y `renderBadge` reciben el paso empezando en **1**, no en 0. Ten en cuenta esto al indexar tus arrays de datos.
 :::
 
-:::tip Animaciones en el canvas
+:::tip
+**Animaciones en el canvas**
+
 Para animar transiciones en el canvas, usa `opacity` o `transform` con CSS `transition` sobre los elementos internos, comparando el `step` recibido con el valor de aparición de cada elemento.
 
 ```tsx
@@ -267,11 +271,15 @@ renderCanvas={(step) => (
 ```
 :::
 
-:::tip Sin estado externo
+:::tip
+**Sin estado externo**
+
 `StepAnimator` gestiona su propio estado interno. No necesitas `useState` fuera del componente; simplemente pásale los datos y las funciones de render.
 :::
 
-:::tip `code` es opcional
+:::tip
+**`code` es opcional**
+
 Si un paso no tiene comando asociado, omite la propiedad `code` y el bloque de código no se renderizará:
 
 ```ts

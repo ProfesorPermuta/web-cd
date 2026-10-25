@@ -36,7 +36,9 @@ Se define el alcance del proyecto: qué se va a construir, con qué recursos, en
 
 El equipo trabaja con el cliente para identificar y documentar todos los requisitos funcionales y no funcionales. El resultado es el **Documento de Especificación de Requisitos (SRS)**.
 
-:::tip Clave
+:::tip
+**Clave**
+
 Un requisito mal capturado en esta fase se convierte en un error caro de corregir en fases posteriores.
 :::
 
@@ -76,7 +78,9 @@ Una vez entregado el producto, comienza la fase de mantenimiento: corrección de
 - Cuando se necesita entregar valor al cliente de forma incremental.
 - En proyectos largos donde el mercado o la tecnología pueden cambiar durante el desarrollo.
 
-:::warning Atención
+:::warning
+**Atención**
+
 El mayor riesgo del modelo en Cascada es llegar a la fase de Pruebas y descubrir que el sistema no satisface las necesidades reales del cliente, porque estas evolucionaron durante los meses de desarrollo.
 :::
 

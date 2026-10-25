@@ -34,7 +34,9 @@ Sus responsabilidades principales son:
 - Asegurarse de que el equipo entiende los requisitos.
 - Aceptar o rechazar el trabajo completado en la Sprint Review.
 
-:::warning Regla clave
+:::warning
+**Regla clave**
+
 El Product Owner es **una única persona**, no un comité. Las decisiones sobre qué se construye y en qué orden son suyas.
 :::
 
@@ -104,7 +106,9 @@ Cada miembro responde tres preguntas:
 - ¿Qué haré hoy para ayudar al equipo a alcanzar el objetivo del Sprint?
 - ¿Hay algún impedimento que me bloquea o que puede bloquear al equipo?
 
-:::tip Buena práctica
+:::tip
+**Buena práctica**
+
 El Daily Scrum no es una reunión de estado para el Scrum Master ni para el Product Owner. Es una herramienta del equipo de desarrollo para coordinarse.
 :::
 
@@ -180,7 +184,9 @@ Una buena historia de usuario debe cumplir los criterios **INVEST**:
 | **S** | Small | Pequeña: completable en un Sprint |
 | **T** | Testable | Se pueden definir criterios de aceptación verificables |
 
-:::warning Historia que no cumple INVEST
+:::warning
+**Historia que no cumple INVEST**
+
 "Como usuario, quiero que el sistema sea rápido" — no es **estimable** ni **testable** tal como está escrita. Debería reformularse: "Como usuario, quiero que la búsqueda de libros devuelva resultados en menos de 2 segundos para búsquedas sobre un catálogo de 10.000 títulos".
 :::
 
@@ -215,7 +221,9 @@ Criterio 3:
 
 Estimar el esfuerzo de cada historia de usuario es necesario para que el equipo pueda planificar cuántas historias caben en un Sprint. En Scrum se estima en unidades relativas llamadas **puntos de historia** (Story Points), no en horas.
 
-:::info ¿Por qué puntos y no horas?
+:::info
+**¿Por qué puntos y no horas?**
+
 Las horas son absolutas y varían según la persona. Los puntos de historia miden el esfuerzo relativo: si "registrar un usuario" vale 2 puntos, una tarea "el doble de compleja" vale 4 puntos, independientemente de quién la haga.
 :::
 

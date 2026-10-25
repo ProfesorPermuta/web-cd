@@ -174,7 +174,9 @@ El `main` solo usa `CheckoutFacade` con una única llamada a `checkout(cart, pay
 
 ## Soluciones
 
-:::info Repositorios en Bitbucket
+:::info
+**Repositorios en Bitbucket**
+
 Los repositorios con las soluciones estarán disponibles próximamente.
 :::
 

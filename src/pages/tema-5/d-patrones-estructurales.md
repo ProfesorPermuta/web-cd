@@ -85,7 +85,9 @@ class CheckoutService {
 }
 ```
 
-:::tip ¿Cuándo usar Adapter?
+:::tip
+**¿Cuándo usar Adapter?**
+
 Úsalo cuando necesitas integrar una biblioteca externa o un sistema legado cuya API no encaja con la del resto del sistema. Así evitas modificar el código existente (OCP).
 :::
 
@@ -178,6 +180,8 @@ class Main {
 | **Modifica interfaz** | Sí, la traduce a la esperada | No; crea una interfaz adicional de alto nivel |
 | **Cuándo usarlo** | Integración de código legado o externo | Simplificar el acceso a un sistema complejo |
 
-:::info Ambos son compatibles con OCP
+:::info
+**Ambos son compatibles con OCP**
+
 Tanto Adapter como Facade añaden una capa nueva sin modificar las clases existentes, respetando el principio Abierto/Cerrado.
 :::

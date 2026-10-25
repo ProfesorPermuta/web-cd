@@ -116,7 +116,9 @@ public void processOrder(Order order) {
 | **Reemplazar condicional por polimorfismo** | Hay `if/switch` sobre el tipo de un objeto |
 | **Introducir variable explicativa** | Una expresión compleja resulta difícil de leer |
 
-:::tip Refactoriza con pruebas
+:::tip
+**Refactoriza con pruebas**
+
 Antes de refactorizar, asegúrate de tener pruebas que cubran el comportamiento actual. Si las pruebas siguen pasando tras el cambio, el comportamiento se ha preservado.
 :::
 

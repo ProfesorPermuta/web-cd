@@ -73,7 +73,9 @@ Entregables:
 
 ## Soluciones
 
-:::info Repositorios en Bitbucket
+:::info
+**Repositorios en Bitbucket**
+
 Los repositorios con las soluciones estarán disponibles próximamente.
 :::
 
