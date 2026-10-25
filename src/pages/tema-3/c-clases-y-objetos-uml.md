@@ -31,16 +31,39 @@ En un diagrama de clases, una clase se representa con un **rectángulo dividido 
 ```mermaid
 classDiagram
     class NombreDeClase {
-        -tipo atributo1
-        -tipo atributo2
-        +tipoRetorno metodo1()
-        +metodo2(param tipo)
+        -atributo1: tipo
+        -atributo2: tipo
+        +metodo1(): tipoRetorno
+        +metodo2(param: tipo): tipoRetorno
     }
 ```
 
 - El **nombre** de la clase siempre empieza en mayúscula y está centrado (negrita en muchas herramientas).
 - Los **atributos** se listan con su tipo separado por dos puntos.
 - Los **métodos** se listan con sus parámetros y tipo de retorno.
+
+:::info
+**Guía Mermaid: cómo se escribe una clase**
+
+Todo diagrama de clases en Mermaid empieza con `classDiagram`. Cada clase se declara con `class Nombre { ... }` y dentro de las llaves se escribe **un miembro por línea**: primero el símbolo de visibilidad y después el nombre y el tipo separados por dos puntos (atributos) o el nombre con los parámetros entre paréntesis y el tipo de retorno tras dos puntos (métodos).
+
+````text
+```mermaid
+classDiagram
+    class Product {
+        -name: String         %% atributo: visibilidad nombre: tipo
+        -price: double
+        +getName(): String    %% método: visibilidad nombre(param: tipo): tipoRetorno
+        +applyDiscount(pct: double): void
+    }
+```
+````
+
+- Se escribe dentro de un bloque de código con la etiqueta `mermaid` (tres acentos graves + `mermaid`).
+- Los comentarios empiezan por `%%`.
+- Si una clase no tiene miembros, basta con `class Nombre`.
+- Puedes comprobar tu diagrama al instante en el [editor online de Mermaid](https://mermaid.live).
+:::
 
 ---
 
@@ -68,13 +91,13 @@ Diagrama UML:
 ```mermaid
 classDiagram
     class Product {
-        -String name
-        -double price
-        -int stock
-        +getName() String
-        +getPrice() double
-        +getStock() int
-        +applyDiscount(pct double) void
+        -name: String
+        -price: double
+        -stock: int
+        +getName(): String
+        +getPrice(): double
+        +getStock(): int
+        +applyDiscount(pct: double): void
     }
 ```
 
@@ -131,6 +154,10 @@ Además del diagrama de clases, UML ofrece el **diagrama de objetos**, que muest
 
 La diferencia visual clave: el nombre va **subrayado** y los atributos muestran **valores**, no tipos.
 
+:::note
+Mermaid no dispone de un tipo de diagrama de objetos. En esta asignatura solo se te pedirán **diagramas de clases** (`classDiagram`).
+:::
+
 ---
 
 ## Clases abstractas e interfaces en UML
@@ -141,8 +168,8 @@ Cuando una clase no puede ser instanciada directamente, se denomina **clase abst
 classDiagram
     class Shape {
         <<abstract>>
-        -String color
-        +getArea() double
+        -color: String
+        +getArea(): double
     }
 ```
 
@@ -152,8 +179,8 @@ Las **interfaces** se representan con el estereotipo `«interface»`:
 classDiagram
     class Drivable {
         <<interface>>
-        +drive() void
-        +stop() void
+        +drive(): void
+        +stop(): void
     }
 ```
 
@@ -163,6 +190,12 @@ public interface Drivable {
     void stop();
 }
 ```
+
+:::info
+**Guía Mermaid: estereotipos**
+
+El estereotipo se escribe con `<<...>>` como **primera línea** dentro de las llaves de la clase: `<<abstract>>`, `<<interface>>` o `<<enumeration>>`.
+:::
 
 ---
 

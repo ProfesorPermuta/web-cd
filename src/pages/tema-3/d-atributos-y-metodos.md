@@ -5,12 +5,12 @@ Los **atributos** describen el estado de un objeto (sus datos) y los **métodos*
 ```mermaid
 classDiagram
     class BankAccount {
-        -String owner
-        -double balance
-        -String accountNumber
-        +getBalance() double
-        +deposit(amount double) void
-        +withdraw(amount double) boolean
+        -owner: String
+        -balance: double
+        -accountNumber: String
+        +getBalance(): double
+        +deposit(amount: double): void
+        +withdraw(amount: double): boolean
     }
 ```
 
@@ -21,7 +21,7 @@ classDiagram
 La sintaxis completa de un atributo en UML es:
 
 ```
-visibilidad nombre : tipo [multiplicidad] = valorPorDefecto
+visibilidad nombre: tipo [multiplicidad] = valorPorDefecto
 ```
 
 | Parte | Obligatoria | Ejemplo |
@@ -35,8 +35,8 @@ visibilidad nombre : tipo [multiplicidad] = valorPorDefecto
 Ejemplo con todos los elementos:
 
 ```
-- balance : double = 0.0
-- tags : String[*]
+-balance: double = 0.0
+-tags: String[*]
 ```
 
 ---
@@ -52,14 +52,40 @@ visibilidad nombre(param1: tipo1, param2: tipo2): tipoRetorno
 Ejemplos:
 
 ```
-+ deposit(amount: double): void
-+ withdraw(amount: double): boolean
-+ getFullName(): String
-+ calculateInterest(rate: double, years: int): double
++deposit(amount: double): void
++withdraw(amount: double): boolean
++getFullName(): String
++calculateInterest(rate: double, years: int): double
 ```
 
 :::tip
-Si un método no devuelve nada, el tipo de retorno es `void`. Si no tiene parámetros, los paréntesis van vacíos: `+ getBalance(): double`.
+Si un método no devuelve nada, el tipo de retorno es `void`. Si no tiene parámetros, los paréntesis van vacíos: `+getBalance(): double`.
+:::
+
+:::info
+**Guía Mermaid: atributos y métodos**
+
+En Mermaid se escribe un miembro por línea dentro de la clase, con este formato (el mismo que se usa en todo el curso):
+
+```text
+atributo:  [-|+|#]<nombre_atributo>: <tipo_atributo>
+método:    [-|+|#]<nombre_funcion>(<nombre_parametro>: <tipo_parametro>): <tipo_retorno>
+```
+
+| Elemento | En Mermaid |
+|----------|------------|
+| Atributo | `-balance: double` |
+| Método sin parámetros | `+getBalance(): double` |
+| Método sin retorno | `+markAsPaid(): void` |
+| Método con un parámetro | `+deposit(amount: double): void` |
+| Método con varios parámetros | `+calculateInterest(rate: double, years: int): double` |
+| Colección | `-items: List~Item~` |
+
+Puntos a tener en cuenta:
+- **No hay espacio antes de los dos puntos**: `-balance: double`, no `-balance : double`.
+- Los parámetros también llevan `nombre: tipo`, separados por comas.
+- El **tipo de retorno** va siempre tras `): `, incluso `void`.
+- Los **genéricos** se escriben con tildes `~` en lugar de `< >`: `List~Item~` equivale a `List<Item>`.
 :::
 
 ---
@@ -71,8 +97,8 @@ Los miembros **estáticos** pertenecen a la clase, no a cada objeto. En UML se r
 ```mermaid
 classDiagram
     class MathUtils {
-        -double PI$
-        +circleArea(r double) double$
+        -PI: double$
+        +circleArea(r: double): double$
     }
 ```
 
@@ -88,6 +114,26 @@ public class MathUtils {
 // Se llama sin instanciar la clase:
 double area = MathUtils.circleArea(5.0);
 ```
+
+:::info
+**Guía Mermaid: estático y abstracto**
+
+Se añade un sufijo al final de la línea del miembro: `$` para **estático** y `*` para **abstracto**.
+
+````text
+```mermaid
+classDiagram
+    class MathUtils {
+        -PI: double$
+        +circleArea(r: double): double$
+    }
+    class Shape {
+        <<abstract>>
+        +getArea(): double*
+    }
+```
+````
+:::
 
 ---
 
@@ -112,16 +158,16 @@ Diagrama UML:
 ```mermaid
 classDiagram
     class Order {
-        -int orderId
-        -String customerName
-        -double total
-        -boolean isPaid
-        +getOrderId() int
-        +getCustomerName() String
-        +getTotal() double
-        +isPaid() boolean
-        +addItem(price double) void
-        +markAsPaid() void
+        -orderId: int
+        -customerName: String
+        -total: double
+        -isPaid: boolean
+        +getOrderId(): int
+        +getCustomerName(): String
+        +getTotal(): double
+        +isPaid(): boolean
+        +addItem(price: double): void
+        +markAsPaid(): void
     }
 ```
 

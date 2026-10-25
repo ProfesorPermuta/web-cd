@@ -11,6 +11,21 @@ classDiagram
     Drivable <|.. Car : realización
 ```
 
+:::info
+**Guía Mermaid: herencia y realización**
+
+La punta del triángulo se escribe en el lado de la clase **padre** o de la **interfaz**:
+
+| Relación | Símbolo Mermaid | Ejemplo | Se lee |
+|----------|----------------|---------|--------|
+| Herencia | `<\|--` | `Vehicle <\|-- Car` | `Car` hereda de `Vehicle` |
+| Realización | `<\|..` | `Drivable <\|.. Car` | `Car` implementa `Drivable` |
+
+- La interfaz se declara con `class Drivable { <<interface>> }` (ver [clases y objetos](c-clases-y-objetos-uml.md)).
+- Si la clase hija sobreescribe un método, se vuelve a escribir el método en la hija.
+- Para varios hijos, una línea por relación: `Animal <|-- Dog` y `Animal <|-- Cat`.
+:::
+
 ---
 
 ## Herencia (Generalización)
@@ -27,13 +42,13 @@ Una clase hija:
 ```mermaid
 classDiagram
     class Vehicle {
-        -int speed
-        +accelerate(amount int) void
-        +getSpeed() int
+        -speed: int
+        +accelerate(amount: int): void
+        +getSpeed(): int
     }
     class Car {
-        -int doors
-        +getDoors() int
+        -doors: int
+        +getDoors(): int
     }
     Vehicle <|-- Car
 ```
@@ -115,13 +130,13 @@ Cuando una clase hija redefine un método del padre, se produce **sobreescritura
 ```mermaid
 classDiagram
     class Animal {
-        +makeSound() String
+        +makeSound(): String
     }
     class Dog {
-        +makeSound() String
+        +makeSound(): String
     }
     class Cat {
-        +makeSound() String
+        +makeSound(): String
     }
     Animal <|-- Dog
     Animal <|-- Cat
@@ -169,8 +184,8 @@ La **realización** expresa que una clase se compromete a implementar el contrat
 classDiagram
     class Drivable {
         <<interface>>
-        +drive() void
-        +stop() void
+        +drive(): void
+        +stop(): void
     }
     Drivable <|.. Car : realización
 ```

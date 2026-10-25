@@ -104,11 +104,11 @@ Dado el siguiente diagrama UML de la clase `Person`:
 ```mermaid
 classDiagram
     class Person {
-        -String name
-        -int age
-        +getName() String
-        +getAge() int
-        +greet() String
+        -name: String
+        -age: int
+        +getName(): String
+        +getAge(): int
+        +greet(): String
     }
 ```
 
@@ -139,6 +139,34 @@ public class Person {
 ```
 
 La correspondencia es uno a uno: cada elemento del diagrama se convierte en código Java de forma mecánica.
+
+---
+
+## Escribir UML con Mermaid
+
+Los diagramas de este tema están escritos con **Mermaid**, un lenguaje que convierte texto en diagramas. En esta asignatura **todos los diagramas de clases se escriben en Mermaid**, así que cada apartado incluye una guía de sintaxis (cuadros «Guía Mermaid»). Este es el esqueleto mínimo:
+
+````text
+```mermaid
+classDiagram
+    class Person {
+        -name: String
+        +getName(): String
+    }
+```
+````
+
+| Apartado | Qué aprenderás a escribir |
+|----------|---------------------------|
+| [Clases y objetos](c-clases-y-objetos-uml.md) | Clases, visibilidad, estereotipos (`<<interface>>`, `<<abstract>>`) |
+| [Atributos y métodos](d-atributos-y-metodos.md) | Atributos, métodos, genéricos, miembros estáticos y abstractos |
+| [Relaciones](e-relaciones-asociacion.md) | Asociación, agregación, composición y multiplicidades |
+| [Herencia y realización](f-herencia-y-realizacion.md) | Herencia (`<\|--`) y realización (`<\|..`) |
+| [Ejercicios](h-ejercicios-y-soluciones.md) | Chuleta resumen de toda la sintaxis |
+
+:::tip
+Prueba tus diagramas en el [editor online de Mermaid](https://mermaid.live): si el diagrama no se dibuja, hay un error de sintaxis.
+:::
 
 ---
 

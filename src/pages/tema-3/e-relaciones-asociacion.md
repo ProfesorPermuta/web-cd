@@ -9,6 +9,29 @@ classDiagram
     Car *-- Engine : contiene
 ```
 
+:::info
+**Guía Mermaid: cómo se escriben las relaciones**
+
+Las relaciones se escriben **fuera de las llaves de las clases**, una por línea, con el formato:
+
+```text
+ClaseA "multiplicidadA" símbolo "multiplicidadB" ClaseB : etiqueta
+```
+
+| Relación | Símbolo Mermaid | Ejemplo |
+|----------|----------------|---------|
+| Asociación | `-->` (con flecha) o `--` (sin flecha) | `Driver --> Car` |
+| Agregación | `o--` (rombo hueco junto al "todo") | `Team o-- Player` |
+| Composición | `*--` (rombo relleno junto al "todo") | `Car *-- Engine` |
+| Dependencia | `..>` | `Order ..> Printer` |
+
+Reglas importantes:
+- El **rombo** se dibuja en el extremo del "todo", por lo que el "todo" se escribe **a la izquierda** del símbolo.
+- Las **multiplicidades** van entre comillas dobles y pegadas a la clase a la que se refieren: `Team "1" o-- "0..*" Player`.
+- La **etiqueta** (nombre de la relación) va al final tras dos puntos: `Driver --> Car : conduce`.
+- Si una clase aparece solo en una relación, Mermaid la crea automáticamente; solo hace falta `class` si quieres añadirle atributos y métodos.
+:::
+
 ---
 
 ## Asociación

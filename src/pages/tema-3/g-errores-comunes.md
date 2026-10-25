@@ -180,3 +180,22 @@ public class Dog extends Animal implements Trainable, Domestic { }
 ```
 
 En el diagrama UML, si ves más de 3 niveles de flecha de herencia encadenados, plantéate si la jerarquía es necesaria o si la composición/interfaces serían más adecuadas.
+
+---
+
+## Errores de sintaxis habituales en Mermaid
+
+Si tu diagrama no se dibuja o sale distinto de lo esperado, revisa esta lista:
+
+| Error | Incorrecto | Correcto |
+|-------|-----------|----------|
+| Olvidar la primera línea | `class Car { ... }` | `classDiagram` y después las clases |
+| Genéricos con `< >` | `List<Order> orders` | `List~Order~ orders` |
+| Formato distinto al del curso | `-String name`, `+getName() String` | `-name: String`, `+getName(): String` |
+| Multiplicidad sin comillas | `A 1 --> 0..* B` | `A "1" --> "0..*" B` |
+| Estereotipo fuera de la clase | `<<interface>> Drivable` | `class Drivable { <<interface>> }` |
+| Rombo en la parte | `Engine *-- Car` | `Car *-- Engine` |
+
+:::tip
+Ante cualquier duda, pega el código en el [editor online de Mermaid](https://mermaid.live): te marca la línea que falla.
+:::
