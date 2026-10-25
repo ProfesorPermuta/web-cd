@@ -9,9 +9,10 @@ import styles from './index.module.css';
 
 /* ─── Datos del curso ───────────────────────────────────────── */
 type TemaPage = { label: string; href: string };
-type Tema = { n: number; title: string; color: string; pages: TemaPage[] };
+type Tema = { n: number; title: string; color: string; pages: TemaPage[]; hidden?: boolean };
 
-const TEMAS: Tema[] = [
+// Los temas con `hidden: true` aún no están revisados y no se muestran a los alumnos.
+const ALL_TEMAS: Tema[] = [
   {
     n: 1, title: 'Git y Control de Versiones', color: '#f59e0b',
     pages: [
@@ -48,11 +49,11 @@ const TEMAS: Tema[] = [
       { label: 'Relaciones: asociación',     href: '/tema-3/e-relaciones-asociacion' },
       { label: 'Herencia y realización',     href: '/tema-3/f-herencia-y-realizacion' },
       { label: 'Errores comunes',            href: '/tema-3/g-errores-comunes' },
-      { label: 'Ejercicios y soluciones',    href: '/tema-3/h-ejercicios-y-soluciones' },
+      { label: 'Ejercicios',                 href: '/tema-3/h-ejercicios-y-soluciones' },
     ],
   },
   {
-    n: 4, title: 'Pruebas de Software', color: '#22c55e',
+    n: 4, title: 'Pruebas de Software', color: '#22c55e', hidden: true,
     pages: [
       { label: 'Introducción',              href: '/tema-4/a-introduccion' },
       { label: 'Tipos de pruebas',          href: '/tema-4/b-tipos-de-pruebas' },
@@ -66,7 +67,7 @@ const TEMAS: Tema[] = [
     ],
   },
   {
-    n: 5, title: 'Código Limpio y Patrones de Diseño', color: '#f97316',
+    n: 5, title: 'Código Limpio y Patrones de Diseño', color: '#f97316', hidden: true,
     pages: [
       { label: 'Introducción',               href: '/tema-5/a-introduccion' },
       { label: 'Principios SOLID',           href: '/tema-5/b-principios-solid' },
@@ -78,7 +79,7 @@ const TEMAS: Tema[] = [
     ],
   },
   {
-    n: 6, title: 'Diagramas UML de Comportamiento', color: '#06b6d4',
+    n: 6, title: 'Diagramas UML de Comportamiento', color: '#06b6d4', hidden: true,
     pages: [
       { label: 'Introducción',                href: '/tema-6/a-introduccion' },
       { label: 'Diagramas de casos de uso',   href: '/tema-6/b-diagramas-de-casos-de-uso' },
@@ -90,6 +91,8 @@ const TEMAS: Tema[] = [
     ],
   },
 ];
+
+const TEMAS = ALL_TEMAS.filter(t => !t.hidden);
 
 /* ─── Tarjeta de tema ───────────────────────────────────────── */
 function TemaCard({ tema }: { tema: Tema }) {
