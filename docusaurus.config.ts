@@ -111,6 +111,10 @@ const config: Config = {
               label: 'GitHub',
               href: 'https://github.com/ProfesorPermuta',
             },
+            {
+              label: 'Lista de reproducción en YouTube',
+              href: 'https://www.youtube.com/watch?v=j3qd0t1Evhc&list=PLY3a_10z4KfE',
+            },
           ],
         },
       ],
