@@ -71,6 +71,37 @@ def buscar_navegador():
     sys.exit("No se encontró Edge ni Chrome.")
 
 
+def ficheros_de(carpeta, con_soluciones=False):
+    return sorted(
+        f for f in glob.glob(os.path.join(carpeta, "**", "*.md*"), recursive=True)
+        if f.endswith((".md", ".mdx"))
+        and (con_soluciones or not any(p.lower().startswith("soluciones")
+                                       for p in os.path.relpath(f, carpeta).split(os.sep)[:-1]))
+    )
+
+
+def generar_pdf(ficheros, salida, titulo=None, con_soluciones=False):
+    """Une los ficheros en un PDF. Sin título no se genera portada."""
+    partes = [limpiar(open(f, encoding="utf-8").read(), con_soluciones) for f in ficheros]
+    cuerpo = markdown.markdown("\n\n".join(partes), extensions=EXT)
+    cuerpo = re.sub(r'<pre><code class="language-mermaid">(.*?)</code></pre>',
+                    lambda m: '<pre class="mermaid">' + m.group(1) + "</pre>", cuerpo, flags=re.S)
+    portada = f'<h1 class="cover">{titulo}</h1>' if titulo else ""
+    html = (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body>'
+            f'{portada}{cuerpo}'
+            '<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>'
+            "<script>mermaid.initialize({startOnLoad:true});</script></body></html>")
+    salida = os.path.abspath(salida)
+    os.makedirs(os.path.dirname(salida), exist_ok=True)
+    with tempfile.TemporaryDirectory() as tmp:
+        hp = os.path.join(tmp, "doc.html")
+        open(hp, "w", encoding="utf-8").write(html)
+        subprocess.run([buscar_navegador(), "--headless", "--disable-gpu", "--no-pdf-header-footer",
+                        "--virtual-time-budget=20000", f"--print-to-pdf={salida}",
+                        "file:///" + hp.replace("\\", "/")], check=True,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("carpeta", help="carpeta con los ficheros .md/.mdx")
@@ -83,34 +114,13 @@ def main():
     if not os.path.isdir(carpeta):
         sys.exit(f"No existe la carpeta: {carpeta}")
     nombre = os.path.basename(carpeta.rstrip("/\\"))
-    ficheros = sorted(
-        f for f in glob.glob(os.path.join(carpeta, "**", "*.md*"), recursive=True)
-        if f.endswith((".md", ".mdx"))
-        and (a.con_soluciones or not any(p.lower().startswith("soluciones")
-                                          for p in os.path.relpath(f, carpeta).split(os.sep)[:-1]))
-    )
+    ficheros = ficheros_de(carpeta, a.con_soluciones)
     if not ficheros:
         sys.exit("No hay ficheros .md/.mdx en esa carpeta.")
 
-    partes = [limpiar(open(f, encoding="utf-8").read(), a.con_soluciones) for f in ficheros]
-    cuerpo = markdown.markdown("\n\n".join(partes), extensions=EXT)
-    cuerpo = re.sub(r'<pre><code class="language-mermaid">(.*?)</code></pre>',
-                    lambda m: '<pre class="mermaid">' + m.group(1) + "</pre>", cuerpo, flags=re.S)
-    titulo = a.titulo or nombre
-    html = (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body>'
-            f'<h1 class="cover">{titulo}</h1>{cuerpo}'
-            '<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>'
-            "<script>mermaid.initialize({startOnLoad:true});</script></body></html>")
-
+    generar_pdf(ficheros, a.salida or os.path.join(os.getcwd(), "pdf", nombre + ".pdf"),
+                a.titulo or nombre, a.con_soluciones)
     salida = os.path.abspath(a.salida or os.path.join(os.getcwd(), "pdf", nombre + ".pdf"))
-    os.makedirs(os.path.dirname(salida), exist_ok=True)
-    with tempfile.TemporaryDirectory() as tmp:
-        hp = os.path.join(tmp, "doc.html")
-        open(hp, "w", encoding="utf-8").write(html)
-        subprocess.run([buscar_navegador(), "--headless", "--disable-gpu", "--no-pdf-header-footer",
-                        "--virtual-time-budget=20000", f"--print-to-pdf={salida}",
-                        "file:///" + hp.replace("\\", "/")], check=True,
-                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     print(f"{len(ficheros)} ficheros -> {salida}")
 
 

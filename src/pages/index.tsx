@@ -96,6 +96,7 @@ const TEMAS = ALL_TEMAS.filter(t => !t.hidden);
 
 /* ─── Tarjeta de tema ───────────────────────────────────────── */
 function TemaCard({ tema }: { tema: Tema }) {
+  const zipUrl = useBaseUrl(`/descargas/tema-${tema.n}.zip`);
   return (
     <div className={styles.temaCard} style={{ borderTopColor: tema.color }}>
       <div className={styles.temaCardHeader}>
@@ -115,6 +116,10 @@ function TemaCard({ tema }: { tema: Tema }) {
           </li>
         ))}
       </ul>
+      <a className={styles.downloadBtn} style={{ background: tema.color }}
+         href={zipUrl} download={`tema-${tema.n}.zip`}>
+        ⬇ Descargar tema (ZIP con PDFs)
+      </a>
     </div>
   );
 }
