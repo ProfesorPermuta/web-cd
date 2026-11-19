@@ -97,6 +97,7 @@ def generar_pdf(ficheros, salida, titulo=None, con_soluciones=False):
         hp = os.path.join(tmp, "doc.html")
         open(hp, "w", encoding="utf-8").write(html)
         subprocess.run([buscar_navegador(), "--headless", "--disable-gpu", "--no-pdf-header-footer",
+                        *(["--no-sandbox"] if os.environ.get("CI") else []),
                         "--virtual-time-budget=20000", f"--print-to-pdf={salida}",
                         "file:///" + hp.replace("\\", "/")], check=True,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

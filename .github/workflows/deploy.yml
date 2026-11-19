@@ -24,6 +24,13 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generar ZIPs de PDFs por tema
+        run: |
+          pip install markdown
+          python scripts/generar_zips.py
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
